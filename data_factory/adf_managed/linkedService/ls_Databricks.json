@@ -1,0 +1,17 @@
+{
+	"name": "ls_Databricks",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDatabricks",
+		"typeProperties": {
+			"domain": "https://adb-292772686805184.4.azuredatabricks.net",
+			"authentication": "MSI",
+			"workspaceResourceId": "/subscriptions/719637e5-aedd-4fb1-b231-5101b45f8bb5/resourceGroups/amido-stacks-dev-euw-de/providers/Microsoft.Databricks/workspaces/amido-stacks-dev-euw-de",
+			"newClusterNodeType": "Standard_DS3_v2",
+			"newClusterNumOfWorker": "1:2",
+			"newClusterVersion": "11.3.x-scala2.12",
+			"newClusterInitScripts": [],
+			"clusterOption": "Autoscaling"
+		}
+	}
+}
