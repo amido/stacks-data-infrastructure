@@ -8,10 +8,13 @@
 			"authentication": "MSI",
 			"workspaceResourceId": "/subscriptions/719637e5-aedd-4fb1-b231-5101b45f8bb5/resourceGroups/amido-stacks-dev-euw-de/providers/Microsoft.Databricks/workspaces/amido-stacks-dev-euw-de",
 			"newClusterNodeType": "Standard_DS3_v2",
-			"newClusterNumOfWorker": "1:2",
+			"newClusterNumOfWorker": "1",
+			"newClusterSparkEnvVars": {
+				"PYSPARK_PYTHON": "/databricks/python3/bin/python3"
+			},
 			"newClusterVersion": "11.3.x-scala2.12",
 			"newClusterInitScripts": [],
-			"clusterOption": "Autoscaling"
+			"clusterOption": "Fixed"
 		}
 	}
 }
