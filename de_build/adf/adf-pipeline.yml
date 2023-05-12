@@ -118,7 +118,6 @@ stages:
     strategy:
       runOnce:
         deploy:  
-          container: amidostacks/runner-pwsh:0.3.158-stable
           steps:
 
 
@@ -196,7 +195,6 @@ stages:
     strategy:
       runOnce:
         deploy:  
-          container: amidostacks/runner-pwsh:0.3.158-stable
           steps:
            - checkout: self
            - task: AzureCLI@2
