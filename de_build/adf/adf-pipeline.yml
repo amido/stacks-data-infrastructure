@@ -186,7 +186,7 @@ stages:
     displayName: 'Testing  NonPROD'
     environment: ${{ variables.domain }}-nonprod
     dependsOn: Deploy_NonPROD
-    pool:' azdo-private-test'
+    pool: 'azdo-private-test'
       # vmImage: 'ubuntu-latest'
     strategy:
       runOnce:
