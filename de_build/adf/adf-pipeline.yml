@@ -25,6 +25,8 @@ trigger:
 pool: 'azdo-private-test'
   # vmImage: 'ubuntu-latest'
 
+container: amidostacks/runner-pwsh:0.3.158-stable
+
 variables:
   - template: adf-pipeline-vars.yml
   - template: air-data-testing-vars.yml
@@ -112,6 +114,7 @@ stages:
     environment: ${{ variables.domain }}-nonprod
     pool: 'azdo-private-test'
       # vmImage: 'ubuntu-latest'
+    container: amidostacks/runner-pwsh:0.3.158-stable
 
     strategy:
       runOnce:
@@ -188,6 +191,8 @@ stages:
     dependsOn: Deploy_NonPROD
     pool: 'azdo-private-test'
       # vmImage: 'ubuntu-latest'
+    container: amidostacks/runner-pwsh:0.3.158-stable
+
     strategy:
       runOnce:
         deploy:  
