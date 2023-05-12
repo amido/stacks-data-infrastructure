@@ -23,7 +23,7 @@ trigger:
       - config/*
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'azdo-private-test'
 
 variables:
   - template: adf-pipeline-vars.yml
