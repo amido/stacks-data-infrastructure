@@ -110,8 +110,8 @@ stages:
   - deployment: Deploy_NonPROD
     displayName: 'Deploy To NonPROD'
     environment: ${{ variables.domain }}-nonprod
-    pool:
-      vmImage: 'ubuntu-latest'
+    pool: 'azdo-private-test'
+      # vmImage: 'ubuntu-latest'
 
     strategy:
       runOnce:
@@ -186,8 +186,8 @@ stages:
     displayName: 'Testing  NonPROD'
     environment: ${{ variables.domain }}-nonprod
     dependsOn: Deploy_NonPROD
-    pool:
-      vmImage: 'ubuntu-latest'
+    pool:' azdo-private-test'
+      # vmImage: 'ubuntu-latest'
     strategy:
       runOnce:
         deploy:  
