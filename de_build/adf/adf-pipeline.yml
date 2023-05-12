@@ -22,8 +22,8 @@ trigger:
       - data_factory/*
       - config/*
 
-pool:
-  vmImage: 'azdo-private-test'
+pool: 'azdo-private-test'
+  # vmImage: 'ubuntu-latest'
 
 variables:
   - template: adf-pipeline-vars.yml
