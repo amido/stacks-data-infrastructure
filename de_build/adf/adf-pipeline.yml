@@ -205,7 +205,10 @@ stages:
                ScriptType: 'bash'
                scriptLocation: 'inlineScript'
                inlineScript: az account show 
-           
+           - bash: |
+              python3 --version
+             displayName: 'Python Version'
+
            - task: UsePythonVersion@0
              inputs:
                 versionSpec: '3.8.10' #'$(pythonVersion)'
