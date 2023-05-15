@@ -211,7 +211,7 @@ stages:
 
            - task: UsePythonVersion@0
              inputs:
-                versionSpec: '3.8.10' #'$(pythonVersion)'
+                versionSpec: '3.10.6' #'$(pythonVersion)'
                 githubToken: '$(github_token)'
                 addToPath: true
 
