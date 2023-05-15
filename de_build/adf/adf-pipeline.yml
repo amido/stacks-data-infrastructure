@@ -38,7 +38,7 @@ stages:
   jobs:
   - job: Build_Adf_Configfiles_Build
     displayName: 'ADF-CONFIGFILES-BUILD'
-    container: amidostacks/runner-pwsh-python:0.3.158-stable
+    # container: amidostacks/runner-pwsh-python:0.3.158-stable
 
     steps:
 
@@ -113,7 +113,7 @@ stages:
     environment: ${{ variables.domain }}-nonprod
     pool: 'azdo-private-test'
       # vmImage: 'ubuntu-latest'
-    container: amidostacks/runner-pwsh-python:0.3.158-stable
+    # container: amidostacks/runner-pwsh-python:0.3.158-stable
 
     strategy:
       runOnce:
@@ -190,7 +190,7 @@ stages:
     dependsOn: Deploy_NonPROD
     pool: 'azdo-private-test'
       # vmImage: 'ubuntu-latest'
-    container: amidostacks/runner-pwsh-python:0.3.158-stable
+    # container: amidostacks/runner-pwsh-python:0.3.158-stable
 
     strategy:
       runOnce:
