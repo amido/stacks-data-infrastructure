@@ -23,7 +23,7 @@ def test_config_ingest_sources_uniqueness():
         assert config_uniqueness_check(ingest_entities, "display_name")
 
 
-def config_uniqueness_check(config_list: list[dict], unique_key: str):
+def config_uniqueness_check(config_list: list, unique_key: str):
     key_counter = Counter(i[unique_key] for i in config_list)
     for config in config_list:
         if key_counter[config[unique_key]] == 1:

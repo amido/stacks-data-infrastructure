@@ -38,7 +38,7 @@ def load_config_as_dict(path: str) -> dict:
         return json.load(f)
 
 
-def load_configs_as_list(path: str) -> list[dict]:
+def load_configs_as_list(path: str) -> list:
     """
     Gets all JSON config files within the given path
         :param path: Path of the required resources folder within the config folder (e.g 'folder1')
