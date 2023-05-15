@@ -213,6 +213,7 @@ stages:
           #    displayName: Set Python Version
 
            - bash: |
+              pip install platformdirs==3.0.0
               pip install pytest pylint pylint-exit pytest-azurepipelines pytest-cov poetry
              displayName: 'Install Pipeline Tools'
            - bash: |
