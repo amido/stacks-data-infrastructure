@@ -38,7 +38,6 @@ stages:
   jobs:
   - job: Build_Adf_Configfiles_Build
     displayName: 'ADF-CONFIGFILES-BUILD'
-    # container: amidostacks/runner-pwsh-python:0.3.158-stable
 
     steps:
 
@@ -112,8 +111,6 @@ stages:
     displayName: 'Deploy To NonPROD'
     environment: ${{ variables.domain }}-nonprod
     pool: 'azdo-private-test'
-      # vmImage: 'ubuntu-latest'
-    # container: amidostacks/runner-pwsh-python:0.3.158-stable
 
     strategy:
       runOnce:
@@ -191,8 +188,6 @@ stages:
     environment: ${{ variables.domain }}-nonprod
     dependsOn: Deploy_NonPROD
     pool: 'azdo-private-test'
-      # vmImage: 'ubuntu-latest'
-    # container: amidostacks/runner-pwsh-python:0.3.158-stable
 
     strategy:
       runOnce:
@@ -207,10 +202,9 @@ stages:
                inlineScript: az account show 
            - task: UsePythonVersion@0
              inputs:
-                versionSpec: '3.10.6' #'$(pythonVersion)'
+                versionSpec: '$(pythonVersion)'
                 githubToken: '$(github_token)'
                 addToPath: true
-
              displayName: Set Python Version
 
            - bash: |
