@@ -153,6 +153,7 @@ stages:
                               -predeployment $true
                               -deleteDeployment $false
               azurePowerShellVersion: 'LatestVersion'
+              pwsh: true
 
            - task: AzureResourceManagerTemplateDeployment@3
              displayName: 'ARM Template deployment: Resource Group scope'
