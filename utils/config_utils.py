@@ -3,7 +3,7 @@ Utility module for interacting with JSON config files
 """
 import json
 from pathlib import Path
-
+from typing import List
 
 def get_config_folder() -> str:
     """
