@@ -183,6 +183,7 @@ stages:
                               -predeployment $false
                               -deleteDeployment $True
               azurePowerShellVersion: 'LatestVersion'
+              pwsh: true
 
     # Start Testing 
   - deployment: Test_NonPROD
@@ -304,6 +305,7 @@ stages:
                               -predeployment $true
                               -deleteDeployment $false
               azurePowerShellVersion: 'LatestVersion'
+              pwsh: true
 
            - task: AzureResourceManagerTemplateDeployment@3
              displayName: 'ARM Template deployment: Resource Group scope'
@@ -333,7 +335,8 @@ stages:
                               -predeployment $false
                               -deleteDeployment $True
               azurePowerShellVersion: 'LatestVersion'
- 
+              pwsh: true
+
 - stage: Release
   dependsOn:
       - Build_Stage
