@@ -5,6 +5,7 @@ from jsonschema import validate
 
 from utils.config_utils import load_config_as_dict, load_configs_as_list
 from utils.constants import INGEST_SOURCES_DIR, INGEST_SOURCES_SCHEMA_PATH
+from typing import List
 
 
 def test_config_ingest_sources_schema_valid():
