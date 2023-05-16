@@ -195,3 +195,16 @@ resource "azurerm_role_assignment" "adb_role" {
   role_definition_name = var.adb_role_adf
   principal_id         = module.adf.adf_managed_identity
 }
+
+module "vmss" {
+  source                       = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-vmss?ref=master"
+  vmss_name                    = module.default_label.id
+  vmss_resource_group_name     = azurerm_resource_group.default.name
+  vmss_resource_group_location = azurerm_resource_group.default.location
+  vnet_name                    = "amido-stacks-nonprod-euw-core"
+  vnet_resource_group          = "amido-stacks-nonprod-euw-core"
+  subnet_name                  = "build-agent"
+  vmss_instances               = 1
+  vmss_admin_username          = "adminuser"
+  vmss_disable_password_auth   = false
+}
