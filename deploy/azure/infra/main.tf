@@ -195,3 +195,26 @@ resource "azurerm_role_assignment" "adb_role" {
   role_definition_name = var.adb_role_adf
   principal_id         = module.adf.adf_managed_identity
 }
+
+data "azurerm_subnet" "stacks_vnet_subnet" {
+  name                 = "build-agent"
+  virtual_network_name = "amido-stacks-nonprod-euw-core"
+  resource_group_name  = "amido-stacks-nonprod-euw-core"
+}
+
+module "adls_private" {
+  source                        = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-adls?ref=feature/6101-private-adls"
+  resource_namer                = "privateadlstest"
+  resource_group_name           = azurerm_resource_group.default.name
+  resource_group_location       = azurerm_resource_group.default.location
+  storage_account_details       = var.storage_account_details
+  container_access_type         = var.container_access_type
+  resource_tags                 = module.default_label.tags
+  public_network_access_enabled = var.public_network_access_enabled
+  network_rules = [{
+    default_action             = "Allow"
+    virtual_network_subnet_ids = [data.azurerm_subnet.stacks_vnet_subnet.id]
+    bypass                     = ["Metrics", "Logging", "AzureServices"]
+  }]
+  depends_on = [data.azurerm_subnet.stacks_vnet_subnet]
+}

@@ -127,6 +127,11 @@ variable "storage_account_details" {
   }
 }
 
+variable "public_network_access_enabled" {
+  type    = bool
+  default = false
+}
+
 ############################################
 # Role assignments for ADF
 ############################################
