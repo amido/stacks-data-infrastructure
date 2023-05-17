@@ -287,3 +287,62 @@ variable "databricks_group_display_name" {
   description = "If 'add_rbac_users' set to true then specifies databricks group display name"
   default     = "project_users"
 }
+
+############################################
+# NETWORK INFORMATION
+############################################
+
+variable "network_details" {
+  type = map(object({
+    name          = string
+    address_space = list(string),
+    dns_servers   = list(string),
+    is_hub        = bool
+    subnet_details = map(object({
+      sub_name                                      = string,
+      sub_address_prefix                            = list(string)
+      private_endpoint_network_policies_enabled     = bool
+      private_link_service_network_policies_enabled = bool
+      })
+    )
+
+  }))
+
+  default = {
+    "network1" = {
+      name          = "data-hub-vnet-test"
+      address_space = ["10.2.0.0/16"]
+      dns_servers   = ["10.2.0.4", "10.2.0.5"]
+      is_hub        = true
+      subnet_details = {
+        "sub1" = {
+          sub_name                                      = "primary"
+          sub_address_prefix                            = ["10.2.1.0/24"]
+          private_endpoint_network_policies_enabled     = true
+          private_link_service_network_policies_enabled = true
+        },
+        "sub1" = {
+          sub_name                                      = "build-agent"
+          sub_address_prefix                            = ["10.2.2.0/24"]
+          private_endpoint_network_policies_enabled     = true
+          private_link_service_network_policies_enabled = true
+        }
+
+    } },
+
+
+    "network2" = {
+      name          = "data-spoke-vnet-test"
+      address_space = ["10.3.0.0/16"]
+      dns_servers   = ["10.3.0.4", "10.3.0.5"]
+      is_hub        = false
+      subnet_details = {
+        "sub1" = {
+          sub_name                                      = "primary"
+          sub_address_prefix                            = ["10.3.1.0/24"]
+          private_endpoint_network_policies_enabled     = true
+          private_link_service_network_policies_enabled = true
+        }
+    } }
+  }
+}

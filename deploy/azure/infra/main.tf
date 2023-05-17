@@ -196,15 +196,29 @@ resource "azurerm_role_assignment" "adb_role" {
   principal_id         = module.adf.adf_managed_identity
 }
 
+module "networking" {
+  source                  = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-hub-spoke?ref=feat--add-hub-spoke-module"
+  enable_private_networks = true ## NOTE setting this value to false will cause no resources to be created !!
+  network_details         = var.network_details
+  resource_group_name     = azurerm_resource_group.default.name
+  resource_group_location = azurerm_resource_group.default.location
+  create_hub_fw           = true
+  create_fw_public_ip     = false
+  name_az_fw              = "testfirewall"
+  sku_az_fw               = "AZFW_Hub"
+  sku_tier_az_fw          = "Basic"
+}
+
 module "vmss" {
-  source                       = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-vmss?ref=master"
+  source                       = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-vmss?ref=feature/implement-vmss-build-agent"
   vmss_name                    = module.default_label.id
   vmss_resource_group_name     = azurerm_resource_group.default.name
   vmss_resource_group_location = azurerm_resource_group.default.location
-  vnet_name                    = "amido-stacks-nonprod-euw-core"
-  vnet_resource_group          = "amido-stacks-nonprod-euw-core"
+  vnet_name                    = module.networking.vnets["data-hub-vnet-test"].vnet.name
+  vnet_resource_group          = azurerm_resource_group.default.name
   subnet_name                  = "build-agent"
   vmss_instances               = 1
   vmss_admin_username          = "adminuser"
   vmss_disable_password_auth   = false
+  depends_on                   = [module.module.networking]
 }
