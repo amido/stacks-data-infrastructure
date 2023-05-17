@@ -220,5 +220,5 @@ module "vmss" {
   vmss_instances               = 1
   vmss_admin_username          = "adminuser"
   vmss_disable_password_auth   = false
-  depends_on                   = [module.module.networking]
+  depends_on                   = [module.networking]
 }
