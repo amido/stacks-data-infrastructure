@@ -337,8 +337,8 @@ variable "network_details" {
       dns_servers   = ["10.3.0.4", "10.3.0.5"]
       is_hub        = false
       subnet_details = {
-        "primary" = {
-          sub_name                                      = "primary"
+        "spoke_vnet1" = {
+          sub_name                                      = "spoke_vnet1"
           sub_address_prefix                            = ["10.3.1.0/24"]
           private_endpoint_network_policies_enabled     = true
           private_link_service_network_policies_enabled = true
