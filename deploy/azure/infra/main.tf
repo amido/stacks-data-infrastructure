@@ -214,7 +214,7 @@ module "vmss" {
   vmss_name                    = module.default_label.id
   vmss_resource_group_name     = azurerm_resource_group.default.name
   vmss_resource_group_location = azurerm_resource_group.default.location
-  vnet_name                    = module.networking.vnets["data-hub-vnet-test"].vnet.name
+  vnet_name                    = module.networking.vnets["data-hub-vnet-test"].vnet_id
   vnet_resource_group          = azurerm_resource_group.default.name
   subnet_name                  = "build-agent"
   vmss_instances               = 1
