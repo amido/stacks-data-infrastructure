@@ -315,13 +315,13 @@ variable "network_details" {
       dns_servers   = ["10.2.0.4", "10.2.0.5"]
       is_hub        = true
       subnet_details = {
-        "sub1" = {
+        "primary" = {
           sub_name                                      = "primary"
           sub_address_prefix                            = ["10.2.1.0/24"]
           private_endpoint_network_policies_enabled     = true
           private_link_service_network_policies_enabled = true
         },
-        "sub1" = {
+        "build-agent" = {
           sub_name                                      = "build-agent"
           sub_address_prefix                            = ["10.2.2.0/24"]
           private_endpoint_network_policies_enabled     = true
@@ -337,7 +337,7 @@ variable "network_details" {
       dns_servers   = ["10.3.0.4", "10.3.0.5"]
       is_hub        = false
       subnet_details = {
-        "sub1" = {
+        "primary" = {
           sub_name                                      = "primary"
           sub_address_prefix                            = ["10.3.1.0/24"]
           private_endpoint_network_policies_enabled     = true
