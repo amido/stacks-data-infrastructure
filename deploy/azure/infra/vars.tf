@@ -309,7 +309,7 @@ variable "network_details" {
   }))
 
   default = {
-    "network1" = {
+    "data-hub-vnet-test" = {
       name          = "data-hub-vnet-test"
       address_space = ["10.2.0.0/16"]
       dns_servers   = ["10.2.0.4", "10.2.0.5"]
@@ -331,7 +331,7 @@ variable "network_details" {
     } },
 
 
-    "network2" = {
+    "data-spoke-vnet-test" = {
       name          = "data-spoke-vnet-test"
       address_space = ["10.3.0.0/16"]
       dns_servers   = ["10.3.0.4", "10.3.0.5"]
