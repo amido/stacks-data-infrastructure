@@ -202,12 +202,12 @@ module "networking" {
   network_details         = var.network_details
   resource_group_name     = azurerm_resource_group.default.name
   resource_group_location = azurerm_resource_group.default.location
-  create_hub_fw           = true
-  create_fw_public_ip     = true
+  create_hub_fw           = false
+  create_fw_public_ip     = false
   name_az_fw              = "testfirewall"
   sku_az_fw               = "AZFW_Hub"
   sku_tier_az_fw          = "Basic"
-  hub_fw_address_prefixes = ["10.2.20.0/26"]
+  # hub_fw_address_prefixes = ["10.2.20.0/26"]
 }
 
 module "vmss" {
