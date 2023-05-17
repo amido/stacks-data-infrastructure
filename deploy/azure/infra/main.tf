@@ -210,7 +210,7 @@ module "networking" {
 }
 
 module "vmss" {
-  source                       = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-vmss?ref=feature/implement-vmss-build-agent"
+  source                       = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-vmss?ref=feature/vmss-module"
   vmss_name                    = module.default_label.id
   vmss_resource_group_name     = azurerm_resource_group.default.name
   vmss_resource_group_location = azurerm_resource_group.default.location
