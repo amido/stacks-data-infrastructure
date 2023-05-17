@@ -203,7 +203,7 @@ module "networking" {
   resource_group_name     = azurerm_resource_group.default.name
   resource_group_location = azurerm_resource_group.default.location
   create_hub_fw           = true
-  create_fw_public_ip     = false
+  create_fw_public_ip     = true
   name_az_fw              = "testfirewall"
   sku_az_fw               = "AZFW_Hub"
   sku_tier_az_fw          = "Basic"
