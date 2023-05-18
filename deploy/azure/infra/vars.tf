@@ -294,12 +294,13 @@ variable "databricks_group_display_name" {
 
 variable "network_details" {
   type = map(object({
-    name          = string
-    address_space = list(string),
-    dns_servers   = list(string),
-    is_hub        = bool
+    name                = string
+    address_space       = list(string)
+    dns_servers         = list(string)
+    is_hub              = bool
+    link_to_private_dns = bool
     subnet_details = map(object({
-      sub_name                                      = string,
+      sub_name                                      = string
       sub_address_prefix                            = list(string)
       private_endpoint_network_policies_enabled     = bool
       private_link_service_network_policies_enabled = bool
