@@ -228,3 +228,20 @@ module "vmss" {
   vmss_disable_password_auth = false
   depends_on                 = [module.networking]
 }
+
+module "adls_private" {
+  source                        = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-adls?ref=feature/6101-private-adls"
+  resource_namer                = "privateadlstest"
+  resource_group_name           = azurerm_resource_group.default.name
+  resource_group_location       = azurerm_resource_group.default.location
+  storage_account_details       = var.storage_account_details
+  container_access_type         = var.container_access_type
+  resource_tags                 = module.default_label.tags
+  public_network_access_enabled = var.public_network_access_enabled
+  network_rules = [{
+    default_action             = "Allow"
+    virtual_network_subnet_ids = [module.networking.vnets["data-hub-vnet-test"].vnet_id]
+    bypass                     = ["Metrics", "Logging", "AzureServices"]
+  }]
+  depends_on = [data.azurerm_subnet.stacks_vnet_subnet]
+}
