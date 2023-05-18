@@ -312,7 +312,8 @@ variable "network_details" {
     "data-hub-vnet-test" = {
       name          = "data-hub-vnet-test"
       address_space = ["10.2.0.0/16"]
-      dns_servers   = ["10.2.0.4", "10.2.0.5"]
+      dns_servers   = []
+      # dns_servers   = ["10.2.0.4", "10.2.0.5"]
       is_hub        = true
       subnet_details = {
         "primary" = {
