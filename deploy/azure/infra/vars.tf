@@ -314,7 +314,7 @@ variable "network_details" {
       address_space = ["10.2.0.0/16"]
       dns_servers   = []
       # dns_servers   = ["10.2.0.4", "10.2.0.5"]
-      is_hub        = true
+      is_hub = true
       subnet_details = {
         "primary" = {
           sub_name                                      = "primary"

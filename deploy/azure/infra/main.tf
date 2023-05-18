@@ -197,17 +197,20 @@ resource "azurerm_role_assignment" "adb_role" {
 }
 
 module "networking" {
-  source                  = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-hub-spoke?ref=feat--add-hub-spoke-module"
-  enable_private_networks = true ## NOTE setting this value to false will cause no resources to be created !!
-  network_details         = var.network_details
-  resource_group_name     = azurerm_resource_group.default.name
-  resource_group_location = azurerm_resource_group.default.location
-  create_hub_fw           = true
-  create_fw_public_ip     = true
-  name_az_fw              = "testfirewall"
-  sku_az_fw               = "AZFW_Hub"
-  sku_tier_az_fw          = "Basic"
-  hub_fw_address_prefixes = ["10.2.3.0/26"]
+  source                      = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-hub-spoke?ref=feat--add-hub-spoke-module"
+  enable_private_networks     = true ## NOTE setting this value to false will cause no resources to be created !!
+  network_details             = var.network_details
+  resource_group_name         = azurerm_resource_group.default.name
+  resource_group_location     = azurerm_resource_group.default.location
+  create_hub_fw               = true
+  create_fw_public_ip         = true
+  name_az_fw                  = "testfirewall"
+  sku_az_fw                   = "AZFW_Hub"
+  sku_tier_az_fw              = "Basic"
+  hub_fw_address_prefixes     = ["10.2.3.0/26"]
+  fw_public_ip_sku            = "Standard"
+  fw_public_allocation_method = "Static"
+
 }
 
 module "vmss" {
