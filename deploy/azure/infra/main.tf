@@ -207,7 +207,7 @@ module "networking" {
   name_az_fw              = "testfirewall"
   sku_az_fw               = "AZFW_Hub"
   sku_tier_az_fw          = "Basic"
-  # hub_fw_address_prefixes = ["10.2.20.0/26"]
+  hub_fw_address_prefixes = ["10.2.3.0/26"]
 }
 
 module "vmss" {
