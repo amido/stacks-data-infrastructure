@@ -243,5 +243,5 @@ module "adls_private" {
     virtual_network_subnet_ids = [module.networking.vnets["data-hub-vnet-test"].vnet_id]
     bypass                     = ["Metrics", "Logging", "AzureServices"]
   }]
-  depends_on = [data.azurerm_subnet.stacks_vnet_subnet]
+  depends_on = [module.networking]
 }
