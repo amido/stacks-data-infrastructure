@@ -211,6 +211,7 @@ module "networking" {
   fw_public_ip_sku            = "Standard"
   fw_public_allocation_method = "Static"
   create_private_dns_zone     = true
+  dns_zone_name               = "stacks-de"
 }
 
 module "vmss" {
