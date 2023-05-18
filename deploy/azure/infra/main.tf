@@ -210,7 +210,7 @@ module "networking" {
   hub_fw_address_prefixes     = ["10.2.3.0/26"]
   fw_public_ip_sku            = "Standard"
   fw_public_allocation_method = "Static"
-
+  create_private_dns_zone     = true
 }
 
 module "vmss" {

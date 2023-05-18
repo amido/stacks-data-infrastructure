@@ -314,7 +314,7 @@ variable "network_details" {
       address_space = ["10.2.0.0/16"]
       dns_servers   = []
       # dns_servers   = ["10.2.0.4", "10.2.0.5"]
-      is_hub = true
+      is_hub              = true
       link_to_private_dns = true
       subnet_details = {
         "primary" = {
@@ -334,10 +334,10 @@ variable "network_details" {
 
 
     "data-spoke-vnet-test" = {
-      name          = "data-spoke-vnet-test"
-      address_space = ["10.3.0.0/16"]
-      dns_servers   = ["10.3.0.4", "10.3.0.5"]
-      is_hub        = false
+      name                = "data-spoke-vnet-test"
+      address_space       = ["10.3.0.0/16"]
+      dns_servers         = ["10.3.0.4", "10.3.0.5"]
+      is_hub              = false
       link_to_private_dns = true
       subnet_details = {
         "spoke_vnet1" = {
