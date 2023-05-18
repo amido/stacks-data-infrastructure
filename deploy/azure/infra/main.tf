@@ -206,7 +206,7 @@ module "networking" {
   create_fw_public_ip         = true
   name_az_fw                  = "testfirewall"
   sku_az_fw                   = "AZFW_Hub"
-  sku_tier_az_fw              = "Basic"
+  sku_tier_az_fw              = "Standard"
   hub_fw_address_prefixes     = ["10.2.3.0/26"]
   fw_public_ip_sku            = "Standard"
   fw_public_allocation_method = "Static"
