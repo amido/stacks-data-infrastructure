@@ -240,6 +240,7 @@ module "adls_private" {
   public_network_access_enabled = false
   network_rules = [{
     default_action             = "Allow"
+    ip_rules                   = []
     virtual_network_subnet_ids = [module.networking.subnets["spoke_vnet1"].id]
     bypass                     = ["Metrics", "Logging", "AzureServices"]
   }]
