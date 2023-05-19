@@ -265,3 +265,9 @@ resource "azurerm_role_assignment" "storage_role_context" {
   role_definition_name = var.adb_role_adf
   principal_id         = data.azurerm_client_config.current.object_id
 }
+
+resource "azurerm_role_assignment" "example" {
+  scope                = data.azurerm_subscription.primary.id
+  role_definition_name = "Storage Blob Data Owner"
+  principal_id         = data.azurerm_client_config.example.object_id
+}
