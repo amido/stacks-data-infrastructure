@@ -197,7 +197,7 @@ resource "azurerm_role_assignment" "adb_role" {
 }
 
 module "networking" {
-  source                      = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-hub-spoke"
+  source                      = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-hub-spoke?ref=feature/6101-private-adls"
   enable_private_networks     = true ## NOTE setting this value to false will cause no resources to be created !!
   network_details             = var.network_details
   resource_group_name         = azurerm_resource_group.default.name
@@ -219,14 +219,13 @@ module "vmss" {
   vmss_name                    = module.default_label.id
   vmss_resource_group_name     = azurerm_resource_group.default.name
   vmss_resource_group_location = azurerm_resource_group.default.location
-  # vnet_name                    = module.networking.vnets["data-hub-vnet-test"].vnet_id
-  vnet_name                  = "data-hub-vnet-test"
-  vnet_resource_group        = azurerm_resource_group.default.name
-  subnet_name                = "build-agent"
-  vmss_instances             = 1
-  vmss_admin_username        = "adminuser"
-  vmss_disable_password_auth = false
-  depends_on                 = [module.networking]
+  vnet_name                    = "data-hub-vnet-test"
+  vnet_resource_group          = azurerm_resource_group.default.name
+  subnet_name                  = "build-agent"
+  vmss_instances               = 1
+  vmss_admin_username          = "adminuser"
+  vmss_disable_password_auth   = false
+  depends_on                   = [module.networking]
 }
 
 module "adls_private" {
@@ -240,8 +239,7 @@ module "adls_private" {
   public_network_access_enabled = false
   network_rules = [{
     default_action             = "Allow"
-    # virtual_network_subnet_ids = [module.networking.subnet_ids["spoke_vnet1"].value] 
-    virtual_network_subnet_ids = [module.networking.subnets["spoke_vnet1"].id] 
+    virtual_network_subnet_ids = [module.networking.subnets["spoke_vnet1"].id]
     bypass                     = ["Metrics", "Logging", "AzureServices"]
   }]
   depends_on = [module.networking]
