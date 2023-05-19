@@ -228,38 +228,38 @@ module "vmss" {
   depends_on                   = [module.networking]
 }
 
-module "adls_private" {
-  source                        = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-adls?ref=feature/6101-private-adls"
-  resource_namer                = "${module.default_label.id}1"
-  resource_group_name           = azurerm_resource_group.default.name
-  resource_group_location       = azurerm_resource_group.default.location
-  storage_account_details       = var.storage_account_details
-  container_access_type         = var.container_access_type
-  resource_tags                 = module.default_label.tags
-  public_network_access_enabled = true
-  network_rules = [{
-    default_action             = "Deny"
-    virtual_network_subnet_ids = [module.networking.subnets["spoke_vnet1"].id]
-    # ip_rules                   = ["40.74.28.0/23", "51.104.26.0/24"]
-    bypass                     = ["Metrics", "Logging", "AzureServices"]
-  }]
-  depends_on = [module.networking]
-}
+# module "adls_private" {
+#   source                        = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-adls?ref=feature/6101-private-adls"
+#   resource_namer                = "${module.default_label.id}1"
+#   resource_group_name           = azurerm_resource_group.default.name
+#   resource_group_location       = azurerm_resource_group.default.location
+#   storage_account_details       = var.storage_account_details
+#   container_access_type         = var.container_access_type
+#   resource_tags                 = module.default_label.tags
+#   public_network_access_enabled = true
+#   network_rules = [{
+#     default_action             = "Deny"
+#     virtual_network_subnet_ids = [module.networking.subnets["spoke_vnet1"].id]
+#     # ip_rules                   = ["40.74.28.0/23", "51.104.26.0/24"]
+#     bypass                     = ["Metrics", "Logging", "AzureServices"]
+#   }]
+#   depends_on = [module.networking]
+# }
 
-resource "azurerm_role_assignment" "storage_role_private" {
-  scope                = module.adls_private.storage_account_ids[0]
-  role_definition_name = var.adls_datalake_role_adf
-  principal_id         = module.adf.adf_managed_identity
-}
+# resource "azurerm_role_assignment" "storage_role_private" {
+#   scope                = module.adls_private.storage_account_ids[0]
+#   role_definition_name = var.adls_datalake_role_adf
+#   principal_id         = module.adf.adf_managed_identity
+# }
 
-resource "azurerm_role_assignment" "storage_role_config_private" {
-  scope                = module.adls_private.storage_account_ids[1]
-  role_definition_name = var.blob_dataconfig_role_adf
-  principal_id         = module.adf.adf_managed_identity
-}
+# resource "azurerm_role_assignment" "storage_role_config_private" {
+#   scope                = module.adls_private.storage_account_ids[1]
+#   role_definition_name = var.blob_dataconfig_role_adf
+#   principal_id         = module.adf.adf_managed_identity
+# }
 
-resource "azurerm_role_assignment" "storage_role_context" {
-  scope                = module.adls_private.storage_account_ids[0]
-  role_definition_name = "Storage Account Contributor"
-  principal_id         = data.azurerm_client_config.current.object_id
-}
+# resource "azurerm_role_assignment" "storage_role_context" {
+#   scope                = module.adls_private.storage_account_ids[0]
+#   role_definition_name = "Storage Account Contributor"
+#   principal_id         = data.azurerm_client_config.current.object_id
+# }
