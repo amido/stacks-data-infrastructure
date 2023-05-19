@@ -238,11 +238,11 @@ module "adls_private" {
   container_access_type         = var.container_access_type
   resource_tags                 = module.default_label.tags
   public_network_access_enabled = false
-  network_rules = [{
-    default_action             = "Allow"
-    ip_rules                   = []
-    virtual_network_subnet_ids = [module.networking.subnets["spoke_vnet1"].id]
-    bypass                     = ["Metrics", "Logging", "AzureServices"]
-  }]
+  # network_rules = [{
+  #   default_action             = "Allow"
+  #   ip_rules                   = []
+  #   virtual_network_subnet_ids = [module.networking.subnets["spoke_vnet1"].id]
+  #   bypass                     = ["Metrics", "Logging", "AzureServices"]
+  # }]
   depends_on = [module.networking]
 }
