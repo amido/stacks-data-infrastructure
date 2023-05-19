@@ -79,6 +79,7 @@ stages:
                     TaskctlVersion: ${{ variables.TaskctlVersion }}
                 - bash: |
                     ip addr show
+                    hostname -I
                   displayName: "BuildAgent IP"
                 - task: Bash@3
                   displayName: "Taskctl: Infrastructure"
