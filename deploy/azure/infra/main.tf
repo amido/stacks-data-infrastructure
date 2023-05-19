@@ -222,7 +222,7 @@ module "vmss" {
   vnet_name                    = "data-hub-vnet-test"
   vnet_resource_group          = azurerm_resource_group.default.name
   subnet_name                  = "build-agent"
-  vmss_instances               = 1
+  vmss_instances               = 0
   vmss_admin_username          = "adminuser"
   vmss_disable_password_auth   = false
   depends_on                   = [module.networking]
@@ -255,4 +255,10 @@ resource "azurerm_role_assignment" "storage_role_config_private" {
   scope                = module.adls_private.storage_account_ids[1]
   role_definition_name = var.blob_dataconfig_role_adf
   principal_id         = module.adf.adf_managed_identity
+}
+
+resource "azurerm_role_assignment" "storage_role_context" {
+  scope                = module.adls_private.storage_account_ids[0]
+  role_definition_name = var.adls_datalake_role_adf
+  principal_id         = data.azurerm_client_config.current.object_id
 }
