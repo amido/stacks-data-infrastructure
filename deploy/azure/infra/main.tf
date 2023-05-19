@@ -236,7 +236,7 @@ module "adls_private" {
   storage_account_details       = var.storage_account_details
   container_access_type         = var.container_access_type
   resource_tags                 = module.default_label.tags
-  # public_network_access_enabled = false
+  public_network_access_enabled = false
   network_rules = [{
     default_action             = "Allow"
     virtual_network_subnet_ids = [module.networking.subnets["spoke_vnet1"].id]
