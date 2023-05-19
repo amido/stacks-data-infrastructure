@@ -231,7 +231,7 @@ module "vmss" {
 
 module "adls_private" {
   source                        = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-adls?ref=feature/6101-private-adls"
-  resource_namer                = "privateadlstest"
+  resource_namer                = "${module.default_label.id}1"
   resource_group_name           = azurerm_resource_group.default.name
   resource_group_location       = azurerm_resource_group.default.location
   storage_account_details       = var.storage_account_details
