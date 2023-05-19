@@ -244,3 +244,15 @@ module "adls_private" {
   }]
   depends_on = [module.networking]
 }
+
+resource "azurerm_role_assignment" "storage_role_private" {
+  scope                = module.adls_private.storage_account_ids[0]
+  role_definition_name = var.adls_datalake_role_adf
+  principal_id         = module.adf.adf_managed_identity
+}
+
+resource "azurerm_role_assignment" "storage_role_config_private" {
+  scope                = module.adls_private.storage_account_ids[1]
+  role_definition_name = var.blob_dataconfig_role_adf
+  principal_id         = module.adf.adf_managed_identity
+}
