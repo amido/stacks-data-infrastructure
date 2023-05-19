@@ -197,7 +197,7 @@ resource "azurerm_role_assignment" "adb_role" {
 }
 
 module "networking" {
-  source                      = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-hub-spoke?ref=feat--add-hub-spoke-module"
+  source                      = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-hub-spoke"
   enable_private_networks     = true ## NOTE setting this value to false will cause no resources to be created !!
   network_details             = var.network_details
   resource_group_name         = azurerm_resource_group.default.name
@@ -240,7 +240,7 @@ module "adls_private" {
   public_network_access_enabled = false
   network_rules = [{
     default_action             = "Allow"
-    # virtual_network_subnet_ids = [module.networking.subnet_ids["spoke_vnet1"]] 
+    # virtual_network_subnet_ids = [module.networking.subnet_ids["spoke_vnet1"].value] 
     virtual_network_subnet_ids = [module.networking.subnets["spoke_vnet1"].id] 
     bypass                     = ["Metrics", "Logging", "AzureServices"]
   }]
