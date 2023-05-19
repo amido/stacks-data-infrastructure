@@ -242,7 +242,7 @@ module "adls_private" {
     # virtual_network_subnet_ids = []
     # ip_rules                   = []
     virtual_network_subnet_ids = [module.networking.subnets["spoke_vnet1"].id]
-    ip_rules                   = ["40.74.28.0/23", "51.104.26.0/24"]
+  # ip_rules                   = ["40.74.28.0/23", "51.104.26.0/24"]
     bypass                     = ["Metrics", "Logging", "AzureServices"]
   }]
   depends_on = [module.networking]
