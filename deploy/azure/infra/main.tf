@@ -260,6 +260,6 @@ resource "azurerm_role_assignment" "storage_role_config_private" {
 
 resource "azurerm_role_assignment" "storage_role_context" {
   scope                = module.adls_private.storage_account_ids[0]
-  role_definition_name = "Storage Account Contributor"
+  role_definition_name = var.adb_role_adf
   principal_id         = data.azurerm_client_config.current.object_id
 }
