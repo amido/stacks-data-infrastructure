@@ -236,7 +236,7 @@ module "adls_private" {
   storage_account_details       = var.storage_account_details
   container_access_type         = var.container_access_type
   resource_tags                 = module.default_label.tags
-  public_network_access_enabled = false
+  public_network_access_enabled = true
   network_rules = [{
     default_action             = "Deny"
     ip_rules                   = []
