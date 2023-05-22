@@ -353,3 +353,9 @@ variable "network_details" {
     } }
   }
 }
+
+variable "build_agent_ip" {
+  default = ""
+  description = "IP address of the build agent"
+  type = string
+}
