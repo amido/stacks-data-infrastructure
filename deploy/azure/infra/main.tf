@@ -257,3 +257,19 @@ resource "azurerm_role_assignment" "storage_role_config_private" {
   role_definition_name = var.blob_dataconfig_role_adf
   principal_id         = module.adf.adf_managed_identity
 }
+
+module "kv_default" {
+  source                        = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-kv?ref=feature/private-kv-module"
+  resource_namer                = "${substr(replace(module.default_label.id, "-", ""), 0, 24)}1"
+  resource_group_name           = azurerm_resource_group.default.name
+  resource_group_location       = azurerm_resource_group.default.location
+  create_kv_networkacl          = true
+  enable_rbac_authorization     = false
+  resource_tags                 = module.default_label.tags
+  contributor_object_ids        = concat(var.contributor_object_ids, [data.azurerm_client_config.current.object_id])
+  public_network_access_enabled = true
+  network_acls_bypass           = ["Metrics", "Logging", "AzureServices"]
+  network_acl_default_action    = "Deny"
+  network_acls_ip_rules         = [var.build_agent_ip]
+  virtual_network_subnet_ids    = [module.networking.subnets["spoke_vnet1"].id]
+}
