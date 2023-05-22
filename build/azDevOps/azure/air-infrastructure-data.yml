@@ -80,7 +80,7 @@ stages:
                 - bash: |
                     ip=$(curl https://api.ipify.org/?format=json | jq -r .ip)
                     echo "$ip"
-                    echo "##vso[task.setvariable variable=build_agent_ip;]foo"
+                    echo "##vso[task.setvariable variable=build_agent_ip;]$ip"
                   displayName: "Get Build Agent IP"
                 - task: Bash@3
                   displayName: "Taskctl: Infrastructure"
