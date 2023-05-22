@@ -236,7 +236,7 @@ module "adls_private" {
   storage_account_details       = var.storage_account_details
   container_access_type         = var.container_access_type
   resource_tags                 = module.default_label.tags
-  public_network_access_enabled = true
+  public_network_access_enabled = false
   network_rules = [{
     default_action             = "Deny"
     ip_rules                   = []
@@ -258,16 +258,16 @@ resource "azurerm_role_assignment" "storage_role_config_private" {
   principal_id         = module.adf.adf_managed_identity
 }
 
-resource "azurerm_role_assignment" "storage_role_context_adls" {
-  scope                = module.adls_private.storage_account_ids[0]
-  # role_definition_name = "Storage Blob Data Owner"
-  role_definition_name = "Contributor"
-  principal_id         = data.azurerm_client_config.current.object_id
-}
+# resource "azurerm_role_assignment" "storage_role_context_adls" {
+#   scope                = module.adls_private.storage_account_ids[0]
+#   # role_definition_name = "Storage Blob Data Owner"
+#   role_definition_name = "Contributor"
+#   principal_id         = data.azurerm_client_config.current.object_id
+# }
 
-resource "azurerm_role_assignment" "storage_role_context_config" {
-  scope                = module.adls_private.storage_account_ids[1]
-  # role_definition_name = "Storage Blob Data Owner"
-  role_definition_name = "Contributor"
-  principal_id         = data.azurerm_client_config.current.object_id
-}
+# resource "azurerm_role_assignment" "storage_role_context_config" {
+#   scope                = module.adls_private.storage_account_ids[1]
+#   # role_definition_name = "Storage Blob Data Owner"
+#   role_definition_name = "Contributor"
+#   principal_id         = data.azurerm_client_config.current.object_id
+# }
