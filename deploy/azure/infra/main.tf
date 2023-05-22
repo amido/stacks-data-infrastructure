@@ -260,12 +260,14 @@ resource "azurerm_role_assignment" "storage_role_config_private" {
 
 resource "azurerm_role_assignment" "storage_role_context_adls" {
   scope                = module.adls_private.storage_account_ids[0]
-  role_definition_name = "Storage Blob Data Owner"
+  # role_definition_name = "Storage Blob Data Owner"
+  role_definition_name = "Contributor"
   principal_id         = data.azurerm_client_config.current.object_id
 }
 
 resource "azurerm_role_assignment" "storage_role_context_config" {
   scope                = module.adls_private.storage_account_ids[1]
-  role_definition_name = "Storage Blob Data Owner"
+  # role_definition_name = "Storage Blob Data Owner"
+  role_definition_name = "Contributor"
   principal_id         = data.azurerm_client_config.current.object_id
 }
