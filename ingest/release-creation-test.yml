@@ -85,10 +85,11 @@ stages:
 
           - script: |
               commit=$(Build.SourceVersion)
-              if git rev-parse -q --verify $commit; then
-                echo "Tag exists for the commit"
-              else
+              tag=$(git tag --contains $commit)
+              if [ -z "$tag" ]; then
                 echo "Tag does not exist for the commit"
+              else
+                echo "Tag '$tag' exists for the commit"
               fi
             displayName: Check Tag
 
