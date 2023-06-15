@@ -56,7 +56,7 @@ stages:
             #ref: 'refs/heads/main'
 
           - script: |
-              lastTag=v1.0.502
+              lastTag=v1.0.505
               if [[ -z $lastTag ]]; then
                 major=$(version_major)
                 minor=$(version_minor)
@@ -77,7 +77,6 @@ stages:
               echo "##vso[task.setvariable variable=revision]$revision"
               echo "##vso[task.setvariable variable=newVersion]$newVersion"
             displayName: Determine New Version
-
 
           # - script: |
           #     echo " 1---->v$(newVersion)"
@@ -101,6 +100,8 @@ stages:
           #     git push origin v$(newVersion)
           #   displayName: Create New Tag
 
+
+
           - task: Bash@3
             displayName: Tag Code
             inputs:
@@ -108,11 +109,16 @@ stages:
               script: |
                 git config user.name "BuildService"
                 git config user.email "builder@${COMPANY}.com"
-                git tag -a v${newVersion} -m "Release created by Azure DevOps"
-                git push origin v${newVersion}
+                if git rev-parse -q --verify "v${newVersion}"; then
+                  echo "Tag v${newVersion} already exists for the current commit. Skipping tag creation."
+                else
+                  echo "Creating tag v${newVersion}..."
+                  git tag -a "v${newVersion}" -m "Release created by Azure DevOps"
+                  git push origin "v${newVersion}"
+                fi
             env:
-              COMPANY: $(company) 
-              newVersion: $(newVersion) 
+              COMPANY: $(company)
+              newVersion: $(newVersion)
 
           #           # Create a GitHub release with these packages
           - task: GitHubRelease@1
