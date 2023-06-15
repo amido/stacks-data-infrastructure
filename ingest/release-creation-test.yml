@@ -127,18 +127,18 @@ stages:
             inputs:
               targetType: "inline"
               script: |
-              commit=$(Build.SourceVersion)
-              tag=$(git tag --contains $commit)
-              if [ -z "$tag" ]; then
-                echo "Tag does not exist for the commit"
-                git config user.name "BuildService"
-                git config user.email "builder@${COMPANY}.com"
-                echo "Creating tag v${newVersion}..."
-                git tag -a "v${newVersion}" -m "Release created by Azure DevOps"
-                git push origin "v${newVersion}"
-              else
-                echo "Tag '$tag' exists for the commit.Skipping tag creation"
-              fi
+                commit=$(Build.SourceVersion)
+                tag=$(git tag --contains $commit)
+                if [ -z "$tag" ]; then
+                  echo "Tag does not exist for the commit"
+                  git config user.name "BuildService"
+                  git config user.email "builder@${COMPANY}.com"
+                  echo "Creating tag v${newVersion}..."
+                  git tag -a "v${newVersion}" -m "Release created by Azure DevOps"
+                  git push origin "v${newVersion}"
+                else
+                  echo "Tag '$tag' exists for the commit.Skipping tag creation"
+                fi
             env:
               COMPANY: $(company)
               newVersion: $(newVersion)
