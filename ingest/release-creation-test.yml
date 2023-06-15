@@ -88,8 +88,13 @@ stages:
               tag=$(git tag --contains $commit)
               if [ -z "$tag" ]; then
                 echo "Tag does not exist for the commit"
+                git config user.name "BuildService"
+                git config user.email "builder@${COMPANY}.com"
+                echo "Creating tag v${newVersion}..."
+                git tag -a "v${newVersion}" -m "Release created by Azure DevOps"
+                git push origin "v${newVersion}"
               else
-                echo "Tag '$tag' exists for the commit"
+                echo "Tag '$tag' exists for the commit.Skipping tag creation"
               fi
             displayName: Check Tag
 
@@ -117,24 +122,24 @@ stages:
 
 
 
-          # - task: Bash@3
-          #   displayName: Tag Code
-          #   inputs:
-          #     targetType: "inline"
-          #     script: |
-          #       commit=$(Build.SourceVersion)
-          #       if git rev-parse -q --verify $commit; then
-          #         echo "Tag exists for the commit.Skipping tag creation"
-          #       else
-          #         git config user.name "BuildService"
-          #         git config user.email "builder@${COMPANY}.com"
-          #         echo "Creating tag v${newVersion}..."
-          #         git tag -a "v${newVersion}" -m "Release created by Azure DevOps"
-          #         git push origin "v${newVersion}"
-          #       fi
-          #   env:
-          #     COMPANY: $(company)
-          #     newVersion: $(newVersion)
+          - task: Bash@3
+            displayName: Tag Code
+            inputs:
+              targetType: "inline"
+              script: |
+                commit=$(Build.SourceVersion)
+                if git rev-parse -q --verify $commit; then
+                  echo "Tag exists for the commit.Skipping tag creation"
+                else
+                  git config user.name "BuildService"
+                  git config user.email "builder@${COMPANY}.com"
+                  echo "Creating tag v${newVersion}..."
+                  git tag -a "v${newVersion}" -m "Release created by Azure DevOps"
+                  git push origin "v${newVersion}"
+                fi
+            env:
+              COMPANY: $(company)
+              newVersion: $(newVersion)
 
           # #           # Create a GitHub release with these packages
           # - task: GitHubRelease@1
