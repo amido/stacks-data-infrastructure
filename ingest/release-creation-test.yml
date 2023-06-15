@@ -78,6 +78,11 @@ stages:
               echo "##vso[task.setvariable variable=newVersion]$newVersion"
             displayName: Determine New Version
 
+            - script: |
+              latestTag=$(git describe --tags --abbrev=0)
+              echo "latestTag: $latestTag"
+            displayName: Determine New Version
+
           - script: |
               commit=$(Build.SourceVersion)
               if git rev-parse -q --verify $commit; then
