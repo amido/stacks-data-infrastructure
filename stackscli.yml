@@ -16,6 +16,9 @@ pipeline:
 setup:
   operations:
     - action: copy
+
+init:
+  operations:
     - action: folders
-      args: {{ project.Folders }}
+      args: "{{ project.Folders }}"
       description: Only keep the named folders
