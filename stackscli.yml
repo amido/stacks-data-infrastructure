@@ -20,5 +20,5 @@ setup:
 init:
   operations:
     - action: folders
-      args: "{{ .Project.Folders }}"
+      items: {{ .Project.Folders }}
       description: Only keep the named folders
