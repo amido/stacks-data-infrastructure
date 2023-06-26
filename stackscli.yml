@@ -16,9 +16,6 @@ pipeline:
 setup:
   operations:
     - action: copy
-
-init:
-  operations:
     - action: folders
       args: "{{ StringsJoin .Project.Folders \",\"}}"
       description: Only keep the named folders
