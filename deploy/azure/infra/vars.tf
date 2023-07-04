@@ -483,3 +483,9 @@ variable "kv_public_network_access_enabled" {
   default     = false
   description = "Allow public network access to Key Vault. Set as true or false."
 }
+
+variable "sa_public_network_access_enabled" {
+  type        = bool
+  default     = false
+  description = "Allow public network access to storage account. Set as true or false."
+}
