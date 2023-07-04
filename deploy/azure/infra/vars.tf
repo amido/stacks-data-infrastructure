@@ -478,7 +478,7 @@ variable "pe_resource_group_location" {
 # PUBLIC NETWORK ACCESS INFORMATION
 ############################################
 
-variable "public_network_access_enabled" {
+variable "kv_public_network_access_enabled" {
   type        = bool
   default     = false
   description = "Allow public network access to Key Vault. Set as true or false."
