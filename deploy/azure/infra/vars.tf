@@ -473,3 +473,13 @@ variable "pe_resource_group_location" {
   default     = "westeurope"
   description = "Location of the resource group to provision private endpoint in."
 }
+
+############################################
+# PUBLIC NETWORK ACCESS INFORMATION
+############################################
+
+variable "public_network_access_enabled" {
+  type        = bool
+  default     = false
+  description = "Allow public network access to Key Vault. Set as true or false."
+}
