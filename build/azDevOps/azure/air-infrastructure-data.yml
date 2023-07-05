@@ -21,8 +21,8 @@ trigger:
       - deploy/azure/infra/*
 variables:
   - template: air-infrastructure-data-vars.yml
-  - name: pool_vm_image
-    value: ubuntu-20.04  
+  # - name: pool_vm_image
+  #   value: ubuntu-20.04  
 
 stages:
   - stage: Build
@@ -34,8 +34,8 @@ stages:
     jobs:
       - job: Validate
         pool:
-          #name: $(agentpool_name)
-          vmImage: $(pool_vm_image)
+          name: $(agentpool_name)
+          #vmImage: $(pool_vm_image)
 
         steps:
           - template: ../templates/air-infrastructure-data-setup.yml
@@ -82,8 +82,8 @@ stages:
     jobs:
       - deployment: InfraNonProd
         pool: #"amido-stacks-core-data-agent-pool"
-          #name: $(agentpool_name)
-          vmImage: $(pool_vm_image)
+          name: $(agentpool_name)
+          #vmImage: $(pool_vm_image)
         environment: ${{ variables.domain }}-nonprod
         strategy:
           runOnce:
