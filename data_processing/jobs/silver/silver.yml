@@ -3,8 +3,7 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-# Sample YAML file to validate and export an ARM template into a build artifact
-# Requires a package.json file located in the target repository
+
 
 name: "$(Build.SourceBranchName)-init"
 
