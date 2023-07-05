@@ -31,7 +31,8 @@ stages:
     jobs:
       - job: Validate
         pool:
-          name: $(agentpool_name)
+          #name: $(agentpool_name)
+          vmImage: $(pool_vm_image)
 
         steps:
           - template: ../templates/air-infrastructure-data-setup.yml
@@ -78,7 +79,8 @@ stages:
     jobs:
       - deployment: InfraNonProd
         pool: #"amido-stacks-core-data-agent-pool"
-          name: $(agentpool_name)
+          #name: $(agentpool_name)
+          vmImage: $(pool_vm_image)
         environment: ${{ variables.domain }}-nonprod
         strategy:
           runOnce:
