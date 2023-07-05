@@ -21,14 +21,15 @@ trigger:
       - deploy/azure/infra/*
 variables:
   - template: air-infrastructure-data-vars.yml
+  - name: pool_vm_image
+    value: ubuntu-20.04  
 
 stages:
   - stage: Build
     variables:
       - group: amido-stacks-infra-credentials-nonprod
       - group: stacks-credentials-nonprod-kv
-      - name: pool_vm_image
-        value: ubuntu-20.04
+
 
     jobs:
       - job: Validate
