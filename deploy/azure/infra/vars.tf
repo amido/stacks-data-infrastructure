@@ -480,12 +480,12 @@ variable "pe_resource_group_location" {
 
 variable "kv_public_network_access_enabled" {
   type        = bool
-  default     = true
+  default     = false
   description = "Allow public network access to Key Vault. Set as true or false."
 }
 
 variable "sa_public_network_access_enabled" {
   type        = bool
-  default     = true
+  default     = false
   description = "Allow public network access to storage account. Set as true or false."
 }
