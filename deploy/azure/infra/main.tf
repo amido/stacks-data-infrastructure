@@ -236,6 +236,7 @@ module "sql" {
   pe_resource_group_location = var.pe_resource_group_location
   private_dns_zone_name      = data.azurerm_private_dns_zone.private_dns.name
   private_dns_zone_ids       = ["${data.azurerm_private_dns_zone.private_dns.id}"]
+  public_network_access_enabled =var.sql_public_network_access_enabled
 
 }
 
