@@ -185,10 +185,16 @@ stages:
                   RunAsPreJob: false
              displayName: 'Get secrets from the keyvault'             
              
-           - script: |
-                      echo "$(databricks-host)
-                      $(databricks-token)" | databricks configure --token
+          #  - script: |
+          #             echo "$(databricks-host)
+          #             $(databricks-token)" | databricks configure --token
+          #    displayName: Configure databricks-cli
+
+           - pwsh: |
+               $configData = "$(databricks-host)`n$(databricks-token)"
+               echo $configData | databricks configure --token
              displayName: Configure databricks-cli
+
 
            - script: |
                       folder_exists=$(databricks fs ls dbfs:/FileStore/scripts 2>&1)
