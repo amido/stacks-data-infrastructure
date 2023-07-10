@@ -190,10 +190,22 @@ stages:
           #             $(databricks-token)" | databricks configure --token
           #    displayName: Configure databricks-cli
 
+          #  - pwsh: |
+          #      $configData = "$(databricks-host)`n$(databricks-token)"
+          #      echo $configData | databricks configure --token
+          #      databricks workspace ls
+          #    displayName: Configure databricks-cli
+
            - pwsh: |
-               $configData = "$(databricks-host)`n$(databricks-token)"
-               echo $configData | databricks configure --token
-               databricks workspace ls
+               $args = @"
+               $(databricks-host)
+ 
+               $(databricks-token
+ 
+               "@
+               Write-Output $args | & databricks configure --token 
+               Write-Output "`nDatabricks workspace list:"
+               & databricks workspace list
              displayName: Configure databricks-cli
 
 
