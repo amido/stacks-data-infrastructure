@@ -210,18 +210,18 @@ stages:
               DATABRICKS_DBFS_LOCATION: "$(dbfs_destination)"    #self_repo_spark_src
               DATABRICKS_SOURCE_LOCATION: "./$(self_repo_spark_src)/"
               
-           - pwsh: |
-               $args = @"
-               $(databricks-host)
+          #  - pwsh: |
+          #      $args = @"
+          #      $(databricks-host)
  
-               $(databricks-token)
+          #      $(databricks-token)
  
-               "@
-               Write-Output $args | & databricks configure --token 
-               Write-Output "`nDatabricks workspace list:"
-               & databricks workspace list
-               & databricks fs ls
-             displayName: Configure databricks-cli
+          #      "@
+          #      Write-Output $args | & databricks configure --token 
+          #      Write-Output "`nDatabricks workspace list:"
+          #      & databricks workspace list
+          #      & databricks fs ls
+          #    displayName: Configure databricks-cli
 
 
           #  - script: |
@@ -236,29 +236,29 @@ stages:
           #             fi
           #    displayName: 'Create Scripts Folder If Not Exists'
 
-           - pwsh: |
-               $folderExists = $(databricks fs ls $(destinationPath) 2>&1)
-               Write-Output "folder_exists: $folderExists"
-               if ($folderExists -like "*No file or directory exists*") {
-                   Write-Output "Creating Folder"
-                   $(databricks fs mkdirs $(destinationPath))
-               }
-               else {
-                   Write-Output "Folder Exists"
-               }
-             displayName: 'Create Scripts Folder If Not Exists'
+          #  - pwsh: |
+          #      $folderExists = $(databricks fs ls $(destinationPath) 2>&1)
+          #      Write-Output "folder_exists: $folderExists"
+          #      if ($folderExists -like "*No file or directory exists*") {
+          #          Write-Output "Creating Folder"
+          #          $(databricks fs mkdirs $(destinationPath))
+          #      }
+          #      else {
+          #          Write-Output "Folder Exists"
+          #      }
+          #    displayName: 'Create Scripts Folder If Not Exists'
 
-           - pwsh: |
-               Write-Output "Destination is $(destinationPath)"
-               Write-Output "Source is $(self_repo_sparkjob_dir)"
-               $files = Get-ChildItem -Path $(self_repo_sparkjob_dir)
-               foreach ($file in $files) {
-                   if ($file -is [System.IO.FileInfo]) {
-                       $destination = "$(destinationPath)/$($file.Name)"
-                       & databricks fs cp --overwrite "$($file.FullName)" "$destination"
-                   }
-               }
-             displayName: Upload Spark Jobs
+          #  - pwsh: |
+          #      Write-Output "Destination is $(destinationPath)"
+          #      Write-Output "Source is $(self_repo_sparkjob_dir)"
+          #      $files = Get-ChildItem -Path $(self_repo_sparkjob_dir)
+          #      foreach ($file in $files) {
+          #          if ($file -is [System.IO.FileInfo]) {
+          #              $destination = "$(destinationPath)/$($file.Name)"
+          #              & databricks fs cp --overwrite "$($file.FullName)" "$destination"
+          #          }
+          #      }
+          #    displayName: Upload Spark Jobs
 
           #  - script: |
           #            echo Destination is /FileStore/scripts/
