@@ -45,6 +45,8 @@ variables:
     value: 'data_processing'
   - name: self_repo_adf_src  
     value: "$(jobtype)/jobs/$(job)/adfpipeline"
+    - name: self_repo_spark_src  
+    value: "$(jobtype)/jobs/$(job)/spark-jobs"
   - name: self_repo_adf_dir
     value: "$(self_repo_dir)/$(self_repo_adf_src)/"
   - name: test_unit_path
@@ -208,7 +210,7 @@ stages:
               DATABRICKS_HOST: "$(databricks-host)"
               DATABRICKS_TOKEN: "$(databricks-token)"
               DATABRICKS_DBFS_DESTINATIONPATH: "$(databricks_destination_path)"
-              DATABRICKS_SOURCEPATH: "./$(self_repo_sparkjob_dir)"
+              DATABRICKS_SOURCEPATH: "./$(self_repo_spark_src)"
               TF_FILE_LOCATION: "./$(self_repo_adf_src)/"
               
            - pwsh: |
