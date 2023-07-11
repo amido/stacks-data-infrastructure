@@ -72,6 +72,7 @@ stages:
 - stage: Build_Stage
   variables:
       - group: amido-stacks-de-pipeline-nonprod
+      - destinationPath: 'dbfs:/FileStore/scripts'
       # - name: version_number
       #   value: "$(version_major).$(version_minor).$(version_revision)"
 
@@ -209,28 +210,52 @@ stages:
              displayName: Configure databricks-cli
 
 
-           - script: |
-                      folder_exists=$(databricks fs ls dbfs:/FileStore/scripts 2>&1)
-                      echo "folder_exists: $folder_exists"
-                      if [[ $folder_exists == *"No file or directory exists"* ]]; 
-                      then
-                          echo "Creating Folder"
-                          databricks fs mkdirs dbfs:/FileStore/scripts
-                      else
-                          echo "Folder Exists"
-                      fi
+          #  - script: |
+          #             folder_exists=$(databricks fs ls dbfs:/FileStore/scripts 2>&1)
+          #             echo "folder_exists: $folder_exists"
+          #             if [[ $folder_exists == *"No file or directory exists"* ]]; 
+          #             then
+          #                 echo "Creating Folder"
+          #                 databricks fs mkdirs dbfs:/FileStore/scripts
+          #             else
+          #                 echo "Folder Exists"
+          #             fi
+          #    displayName: 'Create Scripts Folder If Not Exists'
+
+           - pwsh: |
+               $folderExists = $(databricks fs ls $(destinationPath) 2>&1)
+               Write-Output "folder_exists: $folderExists"
+               if ($folderExists -like "*No file or directory exists*") {
+                   Write-Output "Creating Folder"
+                   $(databricks fs mkdirs $(scriptsPath))
+               }
+               else {
+                   Write-Output "Folder Exists"
+               }
              displayName: 'Create Scripts Folder If Not Exists'
 
-           - script: |
-                     echo Destination is /FileStore/scripts/
-                     echo Source is $(self_repo_sparkjob_dir)
-                     for file in $(self_repo_sparkjob_dir)/*; do
-                        if [[ -f $file ]]; then
-                          destination="dbfs:/FileStore/scripts/$(basename $file)"
-                          databricks fs cp --overwrite "$file" "$destination"
-                        fi
-                     done
-             displayName: Upload Spark Jobs  
+           - powershell: |
+               Write-Output "Destination is $(destinationPath)"
+               Write-Output "Source is $(self_repo_sparkjob_dir)"
+               $files = Get-ChildItem -Path $(self_repo_sparkjob_dir)
+               foreach ($file in $files) {
+                   if ($file -is [System.IO.FileInfo]) {
+                       $destination = "$(destinationPath)/$($file.Name)"
+                       & databricks fs cp --overwrite "$($file.FullName)" "$destination"
+                   }
+               }
+             displayName: Upload Spark Jobs
+
+          #  - script: |
+          #            echo Destination is /FileStore/scripts/
+          #            echo Source is $(self_repo_sparkjob_dir)
+          #            for file in $(self_repo_sparkjob_dir)/*; do
+          #               if [[ -f $file ]]; then
+          #                 destination="dbfs:/FileStore/scripts/$(basename $file)"
+          #                 databricks fs cp --overwrite "$file" "$destination"
+          #               fi
+          #            done
+          #    displayName: Upload Spark Jobs  
  
 
     # # Publish ADF
