@@ -39,6 +39,8 @@ variables:
   - template: ../../../build/version-data-vars.yml
   - name: job  #update job name
     value: 'silver'
+  - name: jobtest  #update job name
+    value: 'silvertest'
   - name: jobtype  #update job name
     value: 'data_processing'
   - name: self_repo_adf_src  
