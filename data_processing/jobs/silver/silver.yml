@@ -39,7 +39,7 @@ variables:
   - template: ../../../build/version-data-vars.yml
   - name: job  #update job name
     value: 'silver'
-  - name: databricks_destination_path  #update job name
+  - name: dbfs_destination_path  #update job name
     value: 'dbfs:/FileStore/scriptsTest2'
   - name: jobtype  #update job name
     value: 'data_processing'
