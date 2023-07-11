@@ -40,7 +40,7 @@ variables:
   - name: job  #update job name
     value: 'silver'
   - name: jobtest  #update job name
-    value: 'silvertest'
+    value: 'dbfs:/FileStore/scriptsTest2'
   - name: jobtype  #update job name
     value: 'data_processing'
   - name: self_repo_adf_src  
