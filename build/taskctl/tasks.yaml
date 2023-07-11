@@ -96,11 +96,11 @@ tasks:
           Write-Output $args | & databricks configure --token 
           Write-Output "`nDatabricks workspace list:"
           & databricks workspace list
-          Write-Output "$env:DATABRICKS_HOST"
-          Write-Output "$env:DATABRICKS_TOKEN"
-          Write-Output "$env:DATABRICKS_SOURCEPATH"
-          Write-Output "$env:DATABRICKS_DBFS_DESTINATIONPATH"
-          Write-Output "$env:TF_FILE_LOCATION"
+          Write-Output "1--->$env:DATABRICKS_HOST"
+          Write-Output "1---$env:DATABRICKS_TOKEN"
+          Write-Output "1---$env:DATABRICKS_SOURCEPATH"
+          Write-Output "1---$env:DATABRICKS_DBFS_DESTINATIONPATH"
+          Write-Output "1---$env:TF_FILE_LOCATION"
           Write-Output "--------------"
 
   databricks:createfolder:

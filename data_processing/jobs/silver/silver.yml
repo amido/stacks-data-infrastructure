@@ -63,6 +63,8 @@ variables:
     value: $(domain)_$(job)_dev
   - name: tf_state_key_prod
     value: $(domain)_$(job)_prod
+  - name: destinationPath
+    value: 'dbfs:/FileStore/scriptsTest2'
 
 pool:
   name: $(agentpool_name)
@@ -208,7 +210,7 @@ stages:
               DATABRICKS_HOST: "$(databricks-host)"
               DATABRICKS_TOKEN: "$(databricks-token)"
               DATABRICKS_DBFS_DESTINATIONPATH: "$(destinationPath)"
-              DATABRICKS_SOURCEPATH: "$(self_repo_sparkjob_dir)"
+              DATABRICKS_SOURCEPATH: "./$(self_repo_sparkjob_dir)"
               TF_FILE_LOCATION: "./$(self_repo_adf_src)/"
               
            - pwsh: |
