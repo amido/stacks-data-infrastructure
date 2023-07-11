@@ -61,8 +61,6 @@ variables:
     value: $(domain)_$(job)_dev
   - name: tf_state_key_prod
     value: $(domain)_$(job)_prod
-  - name: databricks_destination_path1  #update job name
-    value: 'dbfs:/FileStore/scriptsTest2'
   - name: destinationPath
     value: 'dbfs:/FileStore/scriptsTest2'
 
@@ -211,7 +209,7 @@ stages:
               DATABRICKS_TOKEN: "$(databricks-token)"
               DATABRICKS_DBFS_DESTINATIONPATH: "$(databricks_destination_path)"
               DATABRICKS_SOURCEPATH: "./$(self_repo_adf_src)"    #self_repo_spark_src
-              ABS_LOCATION: "./$(self_repo_adf_src)/"
+              ABS_LOCATION: "./$(self_repo_spark_src)/"
               
            - pwsh: |
                $args = @"
