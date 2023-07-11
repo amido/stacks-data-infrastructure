@@ -45,7 +45,7 @@ variables:
     value: 'data_processing'
   - name: self_repo_adf_src  
     value: "$(jobtype)/jobs/$(job)/adfpipeline"
-    - name: self_repo_spark_src  
+  - name: self_repo_spark_src  
     value: "$(jobtype)/jobs/$(job)/spark-jobs"
   - name: self_repo_adf_dir
     value: "$(self_repo_dir)/$(self_repo_adf_src)/"
