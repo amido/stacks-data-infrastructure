@@ -72,7 +72,7 @@ stages:
 - stage: Build_Stage
   variables:
       - group: amido-stacks-de-pipeline-nonprod
-      - destinationPath: 'dbfs:/FileStore/scripts'
+      
       # - name: version_number
       #   value: "$(version_major).$(version_minor).$(version_revision)"
 
@@ -148,6 +148,7 @@ stages:
       - group: stacks-credentials-nonprod-kv
       - name: version_number
         value: "$(version_major).$(version_minor).$(version_revision)"
+      - destinationPath: 'dbfs:/FileStore/scripts'
 
   dependsOn: Build_Stage
   jobs:
