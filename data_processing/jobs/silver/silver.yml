@@ -211,7 +211,7 @@ stages:
               DATABRICKS_TOKEN: "$(databricks-token)"
               DATABRICKS_DBFS_DESTINATIONPATH: "$(databricks_destination_path)"
               DATABRICKS_SOURCEPATH: "./$(self_repo_spark_src)"
-              TF_FILE_LOCATION: "./$(self_repo_adf_src)/"
+              ABS_LOCATION: "./$(self_repo_adf_src)/"
               
            - pwsh: |
                $args = @"
