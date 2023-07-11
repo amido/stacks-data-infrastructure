@@ -65,6 +65,8 @@ variables:
     value: $(domain)_$(job)_prod
   - name: destinationPath
     value: 'dbfs:/FileStore/scriptsTest2'
+  - name: databricks_destination_path
+    value: 'dbfs:/FileStore/scriptsTest2'
 
 pool:
   name: $(agentpool_name)
@@ -209,7 +211,7 @@ stages:
               # Dotnet Build
               DATABRICKS_HOST: "$(databricks-host)"
               DATABRICKS_TOKEN: "$(databricks-token)"
-              DATABRICKS_DBFS_DESTINATIONPATH: "$(destinationPath)"
+              DATABRICKS_DBFS_DESTINATIONPATH: "$(databricks_destination_path)"
               DATABRICKS_SOURCEPATH: "./$(self_repo_sparkjob_dir)"
               TF_FILE_LOCATION: "./$(self_repo_adf_src)/"
               
