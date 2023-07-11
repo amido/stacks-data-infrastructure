@@ -55,19 +55,13 @@ variables:
     value: '$(self_repo_dir)/$(jobtype)/jobs/$(job)/junit/'
   - name: self_repo_sparkjob_dir
     value: "$(self_repo_dir)/$(jobtype)/jobs/$(job)/spark-jobs"
-  # - name: overrideParameters
-  #   value: "-factoryName $(datafactoryname)
-  #    -adlsStorageAccountName $(blob_adls_storage)
-  #    -blobStorageAccountName $(blob_configStorage)
-  #    -databricksHost $(databricksHost)
-  #  -databricksWorkspaceResourceId $(databricksWorkspaceResourceId)"
   - name: tf_state_key_dev
     value: $(domain)_$(job)_dev
   - name: tf_state_key_prod
     value: $(domain)_$(job)_prod
-  - name: destinationPath
+  - name: databricks_destination_path  #update job name
     value: 'dbfs:/FileStore/scriptsTest2'
-  - name: databricks_destination_path
+  - name: destinationPath
     value: 'dbfs:/FileStore/scriptsTest2'
 
 pool:
