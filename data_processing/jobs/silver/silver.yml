@@ -207,9 +207,9 @@ stages:
               # Dotnet Build
               DATABRICKS_HOST: "$(databricks-host)"
               DATABRICKS_TOKEN: "$(databricks-token)"
-              DATABRICKS_DBFS_DESTINATIONPATH: "$(databricks_destination_path)"
+              DATABRICKS_DBFS_LOCATION: "$(dbfs_destination)"
               DATABRICKS_SOURCEPATH: "./$(self_repo_adf_src)"    #self_repo_spark_src
-              DATABRICKS_LOCATION: "./$(self_repo_spark_src)/"
+              DATABRICKS_SOURCE_LOCATION: "./$(self_repo_spark_src)/"
               
            - pwsh: |
                $args = @"
