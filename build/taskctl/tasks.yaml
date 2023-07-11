@@ -97,7 +97,10 @@ tasks:
           Write-Output "`nDatabricks workspace list:"
           & databricks workspace list
           Write-Output "$env:DATABRICKS_HOST"
+          Write-Output "$env:DATABRICKS_TOKEN"
           Write-Output "$env:DATABRICKS_SOURCEPATH"
+          Write-Output "$env:DATABRICKS_DBFS_DESTINATIONPATH"
+          Write-Output "--------------"
 
   databricks:createfolder:
     context: powershell
