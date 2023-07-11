@@ -87,8 +87,8 @@ tasks:
     context: powershell
     description: Configure databricks-cli
     command:
-      #- Invoke-Terraform -Workspace -Arguments $env:ENV_NAME -Path $env:TF_FILE_LOCATION -Debug
        - |
+          Write-Output "`nConfigure databricks-cli"
           $args = @"
           $env:DATABRICKS_HOST
           $env:DATABRICKS_TOKEN
@@ -96,30 +96,22 @@ tasks:
           Write-Output $args | & databricks configure --token 
           Write-Output "`nDatabricks workspace list:"
           & databricks workspace list
-          Write-Output "1--->$env:DATABRICKS_HOST"
-          Write-Output "1---$env:DATABRICKS_TOKEN"
-          Write-Output "1---$env:DATABRICKS_DBFS_LOCATION"
-          Write-Output "1---$env:DATABRICKS_SOURCE_LOCATION"
-          Write-Output "--------------"
 
-  databricks:createfolder:
+  databricks:createdir:
     context: powershell
-    description: Create DBFS Folder If Not Exists
+    description: Create DBFS Dir If Not Exists
     command:
-     # - Invoke-Terraform -Plan -Path $env:TF_FILE_LOCATION -Arguments "-input=false","-out=tfplan" -Debug | out-null
        - |
-          Write-Output "`nDatabricks workspace list2:"
-          & databricks workspace list
+          Write-Output "`nCreate DBFS Dir If Not Exists"
           $destinationPath=$env:DATABRICKS_DBFS_LOCATION
-          Write-Output "destinationPath--->$destinationPath"
+          Write-Output "Required DBFS destination is $destinationPath"
           $folderExists = $(databricks fs ls $destinationPath 2>&1)
-          Write-Output "folder_exists: $folderExists"
           if ($folderExists -like "*No file or directory exists*") {
-              Write-Output "Creating Folder"
+              Write-Output "Required DBFS directory doesnot Exists.Creating Now"
               # $(databricks fs mkdirs $destinationPath)
           }
           else {
-              Write-Output "Folder Exists"
+              Write-Output "Required DBFS directory Exists"
           }
 
   databricks:upload:
@@ -128,15 +120,16 @@ tasks:
     command:
       # - Push-Location $env:TF_FILE_LOCATION && Invoke-Terraform -Apply -Path tfplan -Debug 
         - |    
+           Write-Output "`nUpload Spark Jobs or Whl to DBFS"
            $destinationPath=$env:DATABRICKS_DBFS_LOCATION
            $self_repo_sparkjob_dir=$env:DATABRICKS_SOURCE_LOCATION        
-           Write-Output "Destination is $destinationPath"
-           Write-Output "Source is $self_repo_sparkjob_dir"
+           Write-Output "DBFS destination is $destinationPath"
+           Write-Output "DBFS Source File location is $self_repo_sparkjob_dir"
 
             $files = Get-ChildItem -Path $self_repo_sparkjob_dir
             foreach ($file in $files) {
                 if ($file -is [System.IO.FileInfo]) {
-                    Write-Output $file.Name
+                    Write-Output "Uploading $file.Name to $destinationPath"
                     $destination = "$destinationPath/$($file.Name)"
                     & databricks fs cp --overwrite "$($file.FullName)" "$destination"
                 }
