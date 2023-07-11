@@ -40,7 +40,7 @@ pipelines:
 
   databricks:
     - task: databricks:connect
-    - task: databricks:createfolder
+    - task: databricks:createdir
       depends_on: databricks:connect
     - task: databricks:upload
-      depends_on: databricks:createfolder
+      depends_on: databricks:createdir
