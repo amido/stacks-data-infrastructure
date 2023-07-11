@@ -148,7 +148,8 @@ stages:
       - group: stacks-credentials-nonprod-kv
       - name: version_number
         value: "$(version_major).$(version_minor).$(version_revision)"
-      - destinationPath: 'dbfs:/FileStore/scripts'
+      - name: destinationPath
+        value: 'dbfs:/FileStore/scripts
 
   dependsOn: Build_Stage
   jobs:
