@@ -103,7 +103,11 @@ tasks:
     command:
      # - Invoke-Terraform -Plan -Path $env:TF_FILE_LOCATION -Arguments "-input=false","-out=tfplan" -Debug | out-null
        - |
+          Write-Output "`nDatabricks workspace list2:"
+          & databricks workspace list
+          & databricks fs list
           $destinationPath=$env:DATABRICKS_DBFS_DESTINATIONPATH
+          Write-Output "destinationPath--->$destinationPath"
           $folderExists = $(databricks fs ls $destinationPath 2>&1)
           Write-Output "folder_exists: $folderExists"
           if ($folderExists -like "*No file or directory exists*") {
