@@ -127,11 +127,14 @@ tasks:
            $destinationPath=$env:DATABRICKS_DBFS_DESTINATIONPATH
            $self_repo_sparkjob_dir=$env:DATABRICKS_SOURCEPATH        
            Write-Output "Destination is $destinationPath"
-            Write-Output "Source is $self_repo_sparkjob_dir"
-            $files = Get-ChildItem -Path $self_repo_sparkjob_dir
+           Write-Output "Source is $self_repo_sparkjob_dir"
+                       
+           Write-Output "Destination is $env:DATABRICKS_DBFS_DESTINATIONPATH"
+           Write-Output "Source is $env:DATABRICKS_SOURCEPATH "
+            $files = Get-ChildItem -Path $env:DATABRICKS_SOURCEPATH
             foreach ($file in $files) {
                 if ($file -is [System.IO.FileInfo]) {
-                    $destination = "$destinationPath/$($file.Name)"
-                    & databricks fs cp --overwrite "$($file.FullName)" "$destination"
+                    $destination = "$env:DATABRICKS_DBFS_DESTINATIONPATH/$($file.Name)"
+                    & databricks fs cp --overwrite "$($file.FullName)" "$env:DATABRICKS_DBFS_DESTINATIONPATH/$($file.Name)"
                 }
             }
