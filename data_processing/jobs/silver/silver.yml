@@ -149,7 +149,7 @@ stages:
       - name: version_number
         value: "$(version_major).$(version_minor).$(version_revision)"
       - name: destinationPath
-        value: 'dbfs:/FileStore/scripts'
+        value: 'dbfs:/FileStore/scriptsTest'
 
   dependsOn: Build_Stage
   jobs:
