@@ -108,7 +108,7 @@ tasks:
           $destinationPath="$env:DATABRICKS_DBFS_DESTINATIONPATH"
           Write-Output "destinationPath--->$destinationPath"
           Write-Output "destinationPath2--->"$env:DATABRICKS_DBFS_DESTINATIONPATH""
-          $folderExists = $(databricks fs ls $env:DATABRICKS_DBFS_DESTINATIONPATH 2>&1)
+          $folderExists = $(databricks fs ls "$env:DATABRICKS_DBFS_DESTINATIONPATH" 2>&1)
           Write-Output "folder_exists: $folderExists"
           if ($folderExists -like "*No file or directory exists*") {
               Write-Output "Creating Folder"
