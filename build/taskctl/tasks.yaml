@@ -100,6 +100,7 @@ tasks:
           Write-Output "$env:DATABRICKS_TOKEN"
           Write-Output "$env:DATABRICKS_SOURCEPATH"
           Write-Output "$env:DATABRICKS_DBFS_DESTINATIONPATH"
+          Write-Output "$env:TF_FILE_LOCATION"
           Write-Output "--------------"
 
   databricks:createfolder:
