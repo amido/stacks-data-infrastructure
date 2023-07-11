@@ -198,17 +198,17 @@ stages:
           #      echo $configData | databricks configure --token
           #      databricks workspace ls
           #    displayName: Configure databricks-cli
-          #  - task: Bash@3
-          #    displayName: "TaskCTL: Databricks"
-          #    inputs:
-          #     targetType: inline
-          #     script: taskctl databricks
-          #    env:
-          #     # Dotnet Build
-          #     DATABRICKS_HOST: "$(databricks-host)"
-          #     DATABRICKS_TOKEN: "$(databricks-token)"
-          #     DATABRICKS_DBFS_DESTINATIONPATH: "$(destinationPath)"
-          #     DATABRICKS_SOURCEPATH: "$(self_repo_sparkjob_dir)"
+           - task: Bash@3
+             displayName: "TaskCTL: Databricks"
+             inputs:
+              targetType: inline
+              script: taskctl databricks
+             env:
+              # Dotnet Build
+              DATABRICKS_HOST: "$(databricks-host)"
+              DATABRICKS_TOKEN: "$(databricks-token)"
+              DATABRICKS_DBFS_DESTINATIONPATH: "$(destinationPath)"
+              DATABRICKS_SOURCEPATH: "$(self_repo_sparkjob_dir)"
               
            - pwsh: |
                $args = @"
