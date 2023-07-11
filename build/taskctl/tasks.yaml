@@ -81,3 +81,53 @@ tasks:
       - sleep {{ .sleep }}
     variables:
       sleep: 30
+
+# Databricks tasks
+  databricks:connect:
+    context: powershell
+    description: Configure databricks-cli
+    command:
+      #- Invoke-Terraform -Workspace -Arguments $env:ENV_NAME -Path $env:TF_FILE_LOCATION -Debug
+       - |
+          $args = @"
+          $env:DATABRICKS_HOST
+          $env:DATABRICKS_TOKEN
+          "@
+          Write-Output $args | & databricks configure --token 
+          Write-Output "`nDatabricks workspace list:"
+          & databricks workspace list
+
+  databricks:createfolder:
+    context: powershell
+    description: Create DBFS Folder If Not Exists
+    command:
+     # - Invoke-Terraform -Plan -Path $env:TF_FILE_LOCATION -Arguments "-input=false","-out=tfplan" -Debug | out-null
+       - |
+          $destinationPath=$env:DATABRICKS_DBFS_DESTINATIONPATH
+          $folderExists = $(databricks fs ls $destinationPath 2>&1)
+          Write-Output "folder_exists: $folderExists"
+          if ($folderExists -like "*No file or directory exists*") {
+              Write-Output "Creating Folder"
+              $(databricks fs mkdirs $destinationPath)
+          }
+          else {
+              Write-Output "Folder Exists"
+          }
+
+  databricks:upload:
+    context: powershell
+    description: Upload Spark Jobs or Whl to DBFS
+    command:
+      # - Push-Location $env:TF_FILE_LOCATION && Invoke-Terraform -Apply -Path tfplan -Debug 
+        - |    
+           $destinationPath=$env:DATABRICKS_DBFS_DESTINATIONPATH
+           $self_repo_sparkjob_dir=$env:DATABRICKS_SOURCEPATH        
+           Write-Output "Destination is $destinationPath"
+            Write-Output "Source is $self_repo_sparkjob_dir"
+            $files = Get-ChildItem -Path $self_repo_sparkjob_dir
+            foreach ($file in $files) {
+                if ($file -is [System.IO.FileInfo]) {
+                    $destination = "$destinationPath/$($file.Name)"
+                    & databricks fs cp --overwrite "$($file.FullName)" "$destination"
+                }
+            }
