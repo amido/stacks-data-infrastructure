@@ -229,14 +229,14 @@ stages:
                Write-Output "folder_exists: $folderExists"
                if ($folderExists -like "*No file or directory exists*") {
                    Write-Output "Creating Folder"
-                   $(databricks fs mkdirs $(scriptsPath))
+                   $(databricks fs mkdirs $(destinationPath))
                }
                else {
                    Write-Output "Folder Exists"
                }
              displayName: 'Create Scripts Folder If Not Exists'
 
-           - powershell: |
+           - pwsh: |
                Write-Output "Destination is $(destinationPath)"
                Write-Output "Source is $(self_repo_sparkjob_dir)"
                $files = Get-ChildItem -Path $(self_repo_sparkjob_dir)
