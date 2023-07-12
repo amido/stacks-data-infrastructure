@@ -62,7 +62,7 @@ variables:
   - name: tf_state_key_prod
     value: $(domain)_$(job)_prod
   - name: destinationPath
-    value: 'dbfs:/FileStore/scriptsTest2'
+    value: 'dbfs:/FileStore/scriptsTest3'
 
 pool:
   name: $(agentpool_name)

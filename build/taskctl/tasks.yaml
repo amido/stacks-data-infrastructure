@@ -131,7 +131,7 @@ tasks:
             $files = Get-ChildItem -Path $self_repo_sparkjob_dir
             foreach ($file in $files) {
                 if ($file -is [System.IO.FileInfo]) {
-                    Write-Output "Uploading $file.Name to $destinationPath"
+                    Write-Output  $file.Name
                     $destination = "$destinationPath/$($file.Name)"
                     & databricks fs cp --overwrite "$($file.FullName)" "$destination"
                 }
