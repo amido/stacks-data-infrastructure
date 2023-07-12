@@ -40,7 +40,7 @@ variables:
   - name: job  #update job name
     value: 'silver'
   - name: dbfs_destination  #update job name
-    value: 'dbfs:/FileStore/scriptsTest2'
+    value: 'dbfs:/FileStore/scriptsTest3'
   - name: jobtype  #update job name
     value: 'data_processing'
   - name: self_repo_adf_src  
@@ -61,8 +61,6 @@ variables:
     value: $(domain)_$(job)_dev
   - name: tf_state_key_prod
     value: $(domain)_$(job)_prod
-  - name: destinationPath
-    value: 'dbfs:/FileStore/scriptsTest3'
 
 pool:
   name: $(agentpool_name)
