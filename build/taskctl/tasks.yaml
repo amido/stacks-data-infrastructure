@@ -154,11 +154,8 @@ tasks:
           Write-Output "UNIT_TESTING_LOCATION:$test_unit_path"
           Write-Output "JUNIT_LOCATION:$junit_path
             "
-          echo "##[add-path]/opt/hostedtoolcache/Python/$pythonVersion/x64/bin"
-          echo $github_token | gh auth login --with-token
           echo "##[set-env name=PYTHON_VERSION]$pythonVersion"
           Write-Output "**********Debug:Set Python Version*************
-           "
           pip install pytest pylint pylint-exit pytest-azurepipelines pytest-cov poetry
           Write-Output "**********Debug:Poetry Install**********
           "
@@ -174,3 +171,8 @@ tasks:
 
 
   #poetry
+          #   echo "$(Get-Location)/opt/hostedtoolcache/Python/$pythonVersion/x64/bin"
+          # echo $github_token | gh auth login --with-token
+          # echo "##[set-env name=PYTHON_VERSION]$pythonVersion"
+          # Write-Output "**********Debug:Set Python Version*************
+          #  "
