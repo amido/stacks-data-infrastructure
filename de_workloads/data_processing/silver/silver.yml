@@ -226,8 +226,8 @@ stages:
           runOnce:
             deploy:
               steps:
-                - task: AzureCLI@2
-                  inputs:
+                # - task: AzureCLI@2
+                #   inputs:
                     # TODO: Remove hardcoded reference to subscription
                 #     azureSubscription: "Stacks.Pipeline.Builds"
                 #     ScriptType: "bash"
