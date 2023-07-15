@@ -136,3 +136,16 @@ tasks:
                     & databricks fs cp --overwrite "$($file.FullName)" "$destination"
                 }
             }
+
+# Deworkload Testing tasks
+  deworkload:Unit:Testing:
+    context: powershell
+    description: Deworkload Unit Testing
+    command:
+       - |
+          pip install pytest pylint pylint-exit pytest-azurepipelines pytest-cov poetry
+          cd $env:self_repo_dir
+          poetry install
+          cd $env:self_repo_dir
+          python -m pytest $env:test_unit_path
+          Publish-TestResults -TestResultsFiles **/*.xml -SearchFolder $env:junit_path

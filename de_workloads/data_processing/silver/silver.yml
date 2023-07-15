@@ -229,18 +229,18 @@ stages:
                 - task: AzureCLI@2
                   inputs:
                     # TODO: Remove hardcoded reference to subscription
-                    azureSubscription: "Stacks.Pipeline.Builds"
-                    ScriptType: "bash"
-                    scriptLocation: "inlineScript"
-                    inlineScript: az account show
+                #     azureSubscription: "Stacks.Pipeline.Builds"
+                #     ScriptType: "bash"
+                #     scriptLocation: "inlineScript"
+                #     inlineScript: az account show
 
-                - task: UsePythonVersion@0
-                  inputs:
-                    versionSpec: "$(pythonVersion)"
-                    githubToken: "$(github_token)"
-                    addToPath: true
+                # - task: UsePythonVersion@0
+                #   inputs:
+                #     versionSpec: "$(pythonVersion)"
+                #     githubToken: "$(github_token)"
+                #     addToPath: true
 
-                  displayName: Set Python Version
+                #   displayName: Set Python Version
 
                 - bash: |
                     pip install pytest pylint pylint-exit pytest-azurepipelines pytest-cov poetry
