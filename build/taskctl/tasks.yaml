@@ -159,7 +159,7 @@ tasks:
           echo "##[set-env name=PYTHON_VERSION]$pythonVersion"
           Write-Output "**********Debug:Set Python Version*************
            "
-          pip install pytest pylint pylint-exit pytest-azurepipelines pytest-cov 
+          pip install pytest pylint pylint-exit pytest-azurepipelines pytest-cov poetry
           Write-Output "**********Debug:Poetry Install**********
           "
           cd $self_repo_dir
