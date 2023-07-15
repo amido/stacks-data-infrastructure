@@ -154,6 +154,9 @@ stages:
                 - template: ../../../build/azDevOps/templates/air-infrastructure-data-setup.yml
                   parameters:
                     TaskctlVersion: ${{ variables.TaskctlVersion }}
+                - script: dir
+                  displayName: List  Workspace
+                  workingDirectory: '$(System.DefaultWorkingDirectory)'
 
                 # Publish Config files
                 # - task: AzureCLI@2
@@ -243,9 +246,9 @@ stages:
                     # Dotnet Build
                     GITHUB_TOKEN: "$(github_token)"
                     PYTHON_VERSION: "$(pythonVersion)"
-                    PYPROJECT_LOCATION: "./$(self_repo_dir)"    #self_repo_spark_src
-                    UNIT_TESTING_LOCATION: "./$(test_unit_path)/"
-                    JUNIT_LOCATION: "./$(junit_path)/"
+                    PYPROJECT_LOCATION: ".$(self_repo_dir)"    #self_repo_spark_src
+                    UNIT_TESTING_LOCATION: ".$(test_unit_path)"
+                    JUNIT_LOCATION: ".$(junit_path)"
 
                 # - task: UsePythonVersion@0
                 #   inputs:
