@@ -246,9 +246,9 @@ stages:
                     # Dotnet Build
                     GITHUB_TOKEN: "$(github_token)"
                     PYTHON_VERSION: "$(pythonVersion)"
-                    PYPROJECT_LOCATION: ".$(self_repo_dir)"    #self_repo_spark_src
-                    UNIT_TESTING_LOCATION: ".$(test_unit_path)"
-                    JUNIT_LOCATION: ".$(junit_path)"
+                    PYPROJECT_LOCATION: "./"    #$(self_repo_dir)
+                    UNIT_TESTING_LOCATION: "./de_workloads/data_processing/silver/tests/unit/"
+                    JUNIT_LOCATION: "./de_workloads/data_processing/silver/junit/"
 
                 # - task: UsePythonVersion@0
                 #   inputs:
