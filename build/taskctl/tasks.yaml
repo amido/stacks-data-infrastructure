@@ -143,9 +143,18 @@ tasks:
     description: Deworkload Unit Testing
     command:
        - |
+          $pythonVersion=$env:PYTHON_VERSION
+          $github_token=$env:GITHUB_TOKEN
+          $self_repo_dir=$env:PYPROJECT_LOCATION
+          $test_unit_path=$env:UNIT_TESTING_LOCATION
+          $junit_path=$env:JUNIT_LOCATION
+          echo "##[add-path]/opt/hostedtoolcache/Python/$(pythonVersion)/x64/bin"
+          echo $(github_token) | gh auth login --with-token
+          echo "##[set-env name=PYTHON_VERSION]$(pythonVersion)"
+          echo "Set Python Version"
           pip install pytest pylint pylint-exit pytest-azurepipelines pytest-cov poetry
-          cd $env:self_repo_dir
+          cd $self_repo_dir
           poetry install
-          cd $env:self_repo_dir
-          python -m pytest $env:test_unit_path
-          Publish-TestResults -TestResultsFiles **/*.xml -SearchFolder $env:junit_path
+          cd $self_repo_dir
+          python -m pytest $test_unit_path
+          Publish-TestResults -TestResultsFiles **/*.xml -SearchFolder $junit_path
