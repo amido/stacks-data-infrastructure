@@ -154,8 +154,7 @@ tasks:
           Write-Output "UNIT_TESTING_LOCATION:$test_unit_path"
           Write-Output "JUNIT_LOCATION:$junit_path
             "
-          apt-get update
-          apt-get install -y python3.10 python3-pip
+
 
           pip install pytest pylint pylint-exit pytest-azurepipelines pytest-cov poetry
           Write-Output "**********Debug:Poetry Install**********
@@ -177,3 +176,6 @@ tasks:
           # echo "##[set-env name=PYTHON_VERSION]$pythonVersion"
           # Write-Output "**********Debug:Set Python Version*************
           #  "
+
+          #           apt-get update
+          # apt-get install -y python3.10 python3-pip
