@@ -157,7 +157,6 @@ tasks:
           pyenv install 3.10.10
           pyenv local 3.10.10
           python --version
-          Write-Output "**********Debug:Set Python Version*************
 
           pip install pytest pylint pylint-exit pytest-azurepipelines pytest-cov poetry
           Write-Output "**********Debug:Poetry Install**********
