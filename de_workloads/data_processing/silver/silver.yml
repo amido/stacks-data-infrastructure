@@ -236,7 +236,13 @@ stages:
                 #     ScriptType: "bash"
                 #     scriptLocation: "inlineScript"
                 #     inlineScript: az account show
+                - task: UsePythonVersion@0
+                  inputs:
+                    versionSpec: "$(pythonVersion)"
+                    githubToken: "$(github_token)"
+                    addToPath: true
 
+                  displayName: Set Python Version
                 - task: Bash@3
                   displayName: "TaskCTL: deworkloadTesting"
                   inputs:
