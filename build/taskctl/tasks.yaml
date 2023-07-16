@@ -154,8 +154,8 @@ tasks:
           Write-Output "UNIT_TESTING_LOCATION:$test_unit_path"
           Write-Output "JUNIT_LOCATION:$junit_path
             "
-          sudo apt-get update
-          sudo apt-get install -y python3.10 python3-pip
+          apt-get update
+          apt-get install -y python3.10 python3-pip
 
           pip install pytest pylint pylint-exit pytest-azurepipelines pytest-cov poetry
           Write-Output "**********Debug:Poetry Install**********
