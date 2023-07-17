@@ -165,9 +165,7 @@ tasks:
           "
           cd $self_repo_dir
           python -m pytest $test_unit_path
-          Write-Output "**********Debug:Publish Test Results**********
-          "
-          Publish-TestResults -TestResultsFiles **/*.xml -SearchFolder $junit_path
+
 
 
   #poetry
@@ -179,3 +177,7 @@ tasks:
 
           #           apt-get update
           # apt-get install -y python3.10 python3-pip
+
+          #           Write-Output "**********Debug:Publish Test Results**********
+          # "
+          # Publish-TestResults -TestResultsFiles **/*.xml -SearchFolder $junit_path

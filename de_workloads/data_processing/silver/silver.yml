@@ -243,6 +243,7 @@ stages:
                     addToPath: true
 
                   displayName: Set Python Version
+                
                 - task: Bash@3
                   displayName: "TaskCTL: deworkloadTesting"
                   inputs:
@@ -291,12 +292,12 @@ stages:
                 # #     AZURE_CLIENT_SECRET: $(azure-client-secret)
                 # #     AZURE_TENANT_ID: $(azure-tenant-id)
 
-                # - task: PublishTestResults@2
-                #   displayName: "Publish Test Results"
-                #   inputs:
-                #     testResultsFiles: "**/*.xml"
-                #     searchFolder: $(junit_path)
-                #   condition: succeededOrFailed()
+                - task: PublishTestResults@2
+                  displayName: "Publish Test Results"
+                  inputs:
+                    testResultsFiles: "**/*.xml"
+                    searchFolder: $(junit_path)
+                  condition: succeededOrFailed()
 
   #############################################################
   # Deploy to Prod
