@@ -164,7 +164,9 @@ tasks:
           Write-Output "**********Debug:Running Unit Tests**********
           "
           cd $self_repo_dir
+          python3 -V
           python3 -m pytest $test_unit_path
+          Copy-Item -Path /app/test-output.xml -Destination ../
           Copy-Item -Path /app/test-output.xml -Destination ../$junit_path
 
 
