@@ -75,6 +75,7 @@ stages:
               script: |
                 echo "Cleaning workspace..."
                 sudo rm -rf $(Build.SourcesDirectory)/*
+                sudo rm -f $(Build.SourcesDirectory)/*
 
           - template: ../../../build/azDevOps/templates/air-infrastructure-data-setup.yml
             parameters:
