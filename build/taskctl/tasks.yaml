@@ -164,7 +164,7 @@ tasks:
           Write-Output "**********Debug:Running Unit Tests**********
           "
           cd $self_repo_dir
-          /azure-cli/bin/python -m pytest $test_unit_path
+          python3 -m pytest $test_unit_path
 
 
 
