@@ -74,11 +74,8 @@ stages:
               targetType: "inline"
               script: |
                 echo "Cleaning workspace..."
-                sudo rm -rf $(Build.SourcesDirectory)/*
-                sudo rm -f $(Build.SourcesDirectory)/.pytest_cache/*
-                sudo rm -f $(Build.SourcesDirectory)/.pytest_cache/.gitignore
-                sudo rm -f $(Build.SourcesDirectory)/.pytest_cache/README.md
-                sudo rm -f $(Build.SourcesDirectory)/.pytest_cache/v/cache/stepwise
+                sudo rm -rf $(Build.SourcesDirectory)/* $(Build.SourcesDirectory)/.*
+
 
           - template: ../../../build/azDevOps/templates/air-infrastructure-data-setup.yml
             parameters:
