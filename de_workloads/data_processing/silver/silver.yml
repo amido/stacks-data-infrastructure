@@ -77,6 +77,8 @@ stages:
                 sudo rm -rf $(Build.SourcesDirectory)/*
                 sudo rm -f $(Build.SourcesDirectory)/.pytest_cache/CACHEDIR.TAG
                 sudo rm -f $(Build.SourcesDirectory)/.pytest_cache/.gitignore
+                sudo rm -f $(Build.SourcesDirectory)/.pytest_cache/README.md
+                sudo rm -f $(Build.SourcesDirectory)/.pytest_cache/v/cache/stepwise
 
           - template: ../../../build/azDevOps/templates/air-infrastructure-data-setup.yml
             parameters:
