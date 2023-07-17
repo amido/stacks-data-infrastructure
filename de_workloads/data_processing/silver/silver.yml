@@ -76,7 +76,7 @@ stages:
                 echo "Cleaning workspace..."
                 sudo rm -rf $(Build.SourcesDirectory)/*
                 sudo rm -rf $(Build.SourcesDirectory)/.pytest_cache/*
-                sudo rm -rf $(Build.SourcesDirectory)/.pytest_cache/.*
+                sudo rm -rf $(Build.SourcesDirectory)/.pytest_cache/.gitignore/*
 
 
           - template: ../../../build/azDevOps/templates/air-infrastructure-data-setup.yml
