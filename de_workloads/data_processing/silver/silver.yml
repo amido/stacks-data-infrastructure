@@ -291,12 +291,15 @@ stages:
                 # #     AZURE_CLIENT_ID: $(azure-client-id)
                 # #     AZURE_CLIENT_SECRET: $(azure-client-secret)
                 # #     AZURE_TENANT_ID: $(azure-tenant-id)
-
+                - script: dir
+                  displayName: List  Workspace
+                  workingDirectory: '$(System.DefaultWorkingDirectory)'
+                  
                 - task: PublishTestResults@2
                   displayName: "Publish Test Results"
                   inputs:
                     testResultsFiles: "**/*.xml"
-                    searchFolder: $(junit_path)
+                    searchFolder: ./app #$(junit_path)
                   condition: succeededOrFailed()
 
   #############################################################
