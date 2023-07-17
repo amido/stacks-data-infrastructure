@@ -75,7 +75,7 @@ stages:
               script: |
                 echo "Cleaning workspace..."
                 sudo rm -rf $(Build.SourcesDirectory)/*
-                sudo rm -f $(Build.SourcesDirectory)/*
+                sudo rm -f $(Build.SourcesDirectory)/.pytest_cache/CACHEDIR.TAG
 
           - template: ../../../build/azDevOps/templates/air-infrastructure-data-setup.yml
             parameters:
