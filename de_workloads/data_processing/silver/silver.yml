@@ -36,7 +36,7 @@ variables:
   - name: test_end_to_end_path
     value: "$(self_repo_job_dir)/tests/end_to_end/features/"
   - name: junit_path
-    value: "$(self_repo_job_dir)/junit/"
+    value: "de_workloads/$(jobtype)/$(job)/junit/"
   - name: self_repo_sparkjob_dir
     value: "$(self_repo_job_dir)/spark_jobs"
   - name: self_repo_adf_src
@@ -259,7 +259,7 @@ stages:
                     PYTHON_VERSION: "$(pythonVersion)"
                     PYPROJECT_LOCATION: "./"    #$(self_repo_dir)
                     UNIT_TESTING_LOCATION: "./de_workloads/data_processing/silver/tests/unit/"
-                    JUNIT_LOCATION: "./de_workloads/data_processing/silver/junit/"
+                    JUNIT_LOCATION: "$(junit_path)"
 
                 # - task: UsePythonVersion@0
                 #   inputs:
