@@ -156,6 +156,7 @@ tasks:
             "
 
           python3 -V
+          pip -V
           pip install pytest pylint pylint-exit pytest-azurepipelines pytest-cov poetry
           Write-Output "**********Debug:Poetry Install**********
           "
