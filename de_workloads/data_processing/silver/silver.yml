@@ -75,12 +75,7 @@ stages:
               script: |
                 echo "Cleaning workspace..."
                 sudo rm -rf $(Build.SourcesDirectory)/*
-          - task: DeleteFiles@1
-            displayName: 'Clean Workspace'
-            inputs:
-              SourceFolder: '$(Build.SourcesDirectory)'
-              Contents: '*'
-              RemoveSourceFolder: false
+
           - template: ../../../build/azDevOps/templates/air-infrastructure-data-setup.yml
             parameters:
               TaskctlVersion: ${{ variables.TaskctlVersion }}
