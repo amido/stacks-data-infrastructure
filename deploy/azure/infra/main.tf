@@ -180,7 +180,7 @@ resource "azurerm_monitor_diagnostic_setting" "adf_log_analytics" {
 # Storage accounts for data lake and config
 module "adls_default" {
 
-  source                        = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-adls"
+  source                        = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-adls?ref=feature/adls-private-endpoints"
   resource_namer                = module.default_label.id
   resource_group_name           = azurerm_resource_group.default.name
   resource_group_location       = azurerm_resource_group.default.location
