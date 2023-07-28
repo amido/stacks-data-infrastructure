@@ -5,6 +5,18 @@ data "azurerm_subnet" "pe_subnet" {
   virtual_network_name = var.vnet_name
   resource_group_name  = var.vnet_resource_group_name
 }
+
+data "azurerm_subnet" "databricks_public_subnet" {
+  name                 = var.public_subnet_name
+  virtual_network_name = var.vnet_name
+  resource_group_name  = var.vnet_resource_group_name
+}
+
+data "azurerm_subnet" "databricks_private_subnet" {
+  name                 = var.private_subnet_name
+  virtual_network_name = var.vnet_name
+  resource_group_name  = var.vnet_resource_group_name
+}
 /*
 data "azurerm_private_dns_zone" "private_dns" {
   name                = var.dns_zone_namede

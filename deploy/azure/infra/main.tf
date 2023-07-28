@@ -281,6 +281,10 @@ module "adb" {
   create_lb                                = false
   managed_vnet                             = false
   browser_authentication_enabled           = var.browser_authentication_enabled
+  virtual_network_id                       = data.azurerm_virtual_network.vnet.id
+  public_subnet_id                         = data.azurerm_subnet.databricks_public_subnet.id
+  private_subnet_id                        = data.azurerm_subnet.databricks_private_subnet.id
+  pe_subnet_id                             = data.azurerm_subnet.pe_subnet.id
 
   depends_on = [azurerm_resource_group.default]
 }
