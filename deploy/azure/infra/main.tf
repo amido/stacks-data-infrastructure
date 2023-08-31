@@ -356,3 +356,23 @@ resource "databricks_workspace_conf" "this" {
   }
   depends_on = [module.adb]
 }
+
+resource "databricks_user" "rbac_users" {
+  for_each     = var.add_rbac_users ? var.rbac_databricks_users : {}
+  display_name = each.value.display_name
+  user_name    = each.value.user_name
+  active       = each.value.active
+}
+
+resource "databricks_group" "project_users" {
+  count                 = var.add_rbac_users ? 1 : 0
+  display_name          = var.databricks_group_display_name
+  workspace_access      = true
+  databricks_sql_access = true
+}
+
+resource "databricks_group_member" "project_users" {
+  for_each  = var.add_rbac_users ? databricks_user.rbac_users : {}
+  group_id  = databricks_group.project_users[0].id
+  member_id = each.value.id
+}
