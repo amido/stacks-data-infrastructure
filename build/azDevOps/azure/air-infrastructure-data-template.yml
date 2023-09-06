@@ -133,12 +133,12 @@ stages:
                       TF_VAR_name_component: $(component)
                       TF_VAR_resource_group_location: $(region)
                       TF_VAR_create_cdn_endpoint: false
-                      TF_VAR_create_dns_record: {{if .ProductionEquivalent}}true{{else}}false{{end}}
+                      TF_VAR_create_dns_record: {{if .IsProduction}}true{{else}}false{{end}}
                       TF_VAR_name_company: $(company)
                       TF_VAR_name_project: $(project)
                       TF_VAR_name_domain: $(domain)
                       TF_VAR_stage: $(Environment.ShortName)
-                      TF_VAR_git_integration: $(git_integration{{if .ProductionEquivalent}}_prod{{else}}{{end}})
+                      TF_VAR_git_integration: $(git_integration{{if .IsProduction}}_prod{{else}}{{end}})
                       TF_VAR_administrator_login: $(sql_admin_login)
                       TF_VAR_build_agent_ip: $(build_agent_ip)
                       TF_VAR_subnet_name: $(pe_subnet_name)
@@ -150,9 +150,9 @@ stages:
                       TF_VAR_public_subnet_prefix: $(public_subnet_prefix)
                       TF_VAR_private_subnet_prefix: $(private_subnet_prefix)
                       TF_VAR_pe_subnet_prefix: $(pe_subnet_prefix)
-                      TF_VAR_link_dns_{{if .ProductionEquivalent}}prod{{else}}dev{{end}}_spoke_network: true
-                      TF_VAR_public_network_access_enabled: {{if .ProductionEquivalent}}false{{else}}true{{end}}
-                      TF_VAR_browser_authentication_enabled: {{if .ProductionEquivalent}}true{{else}}false{{end}}
+                      TF_VAR_link_dns_{{if .IsProduction}}prod{{else}}dev{{end}}_spoke_network: true
+                      TF_VAR_public_network_access_enabled: {{if .IsProduction}}false{{else}}true{{end}}
+                      TF_VAR_browser_authentication_enabled: {{if .IsProduction}}true{{else}}false{{end}}
                       TF_VAR_azure_client_secret: $(azure-client-secret)
     {{ end }}
 
