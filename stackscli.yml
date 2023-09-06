@@ -1,3 +1,5 @@
+# stacks-cli only supports a single variable file. Also build files don't support
+# go template generation so I have called it variable even though its a build file.
 pipeline:
   - type: azdo
     files:
@@ -6,13 +8,6 @@ pipeline:
     templates:
       - name: variable
         path: build/azDevOps/azure/air-infrastructure-data-template.yml
-  - type: azdo
-    files:
-      - name: variable
-        path: build/azDevOps/azure/air-infrastructure-data-vars.yml
-    templates:
-      - name: variable
-        path: build/azDevOps/azure/air-infrastructure-data-vars-template.yml
 
 setup:
   operations:
