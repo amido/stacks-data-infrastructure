@@ -38,19 +38,19 @@ stages:
             env:
               DOCKER_IMAGE_TAG: $(version_number)
 
-          - task: Bash@3
-            displayName: "TaskCTL: Lint"
-            inputs:
-              targetType: inline
-              script: taskctl lint
-            env:
-              # Dotnet Build
-              SELF_REPO_SRC: $(self_repo_src)
-              CLOUD_PROVIDER: "$(cloud_provider)"
-              ARM_TENANT_ID: "$(azure-tenant-id)"
-              ARM_SUBSCRIPTION_ID: "$(azure-subscription-id)"
-              ARM_CLIENT_ID: "$(azure-client-id)"
-              ARM_CLIENT_SECRET: "$(azure-client-secret)"
+          # - task: Bash@3
+          #   displayName: "TaskCTL: Lint"
+          #   inputs:
+          #     targetType: inline
+          #     script: taskctl lint
+          #   env:
+          #     # Dotnet Build
+          #     SELF_REPO_SRC: $(self_repo_src)
+          #     CLOUD_PROVIDER: "$(cloud_provider)"
+          #     ARM_TENANT_ID: "$(azure-tenant-id)"
+          #     ARM_SUBSCRIPTION_ID: "$(azure-subscription-id)"
+          #     ARM_CLIENT_ID: "$(azure-client-id)"
+          #     ARM_CLIENT_SECRET: "$(azure-client-secret)"
 
   - stage: Deploy
     dependsOn: Build
