@@ -9,7 +9,8 @@ pr:
       - build/azDevOps/azure/network/*
       - deploy/azure/networking/*
 
-trigger: null
+trigger: 
+- none
 
 variables:
   - template: air-infrastructure-data-network-vars.yml
