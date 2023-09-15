@@ -36,7 +36,6 @@ stages:
     jobs:
       - job: Validate
         pool:
-          # vmImage: $(pool_vm_image)
           name: $(agentpool_name)
 
         steps:
@@ -90,8 +89,7 @@ stages:
           value: {{ .Name }}
       jobs:
         - deployment: Infra{{ .StageName }}
-          pool: #"amido-stacks-core-data-agent-pool"
-            # vmImage: $(pool_vm_image)
+          pool:
             name: $(agentpool_name)
           environment: {{`${{ variables.domain }}`}}-{{ .Name }} 
           strategy:
@@ -166,7 +164,6 @@ stages:
       jobs:
         - job: CreateGitHubRelease
           pool:
-            # vmImage: $(pool_vm_image)
             name: $(agentpool_name)
           steps:
             - task: Bash@3
@@ -226,7 +223,7 @@ stages:
                 COMPANY: $(company)
                 newVersion: $(newVersion)
 
-            # #           # Create a GitHub release with these packages
+            # Create a GitHub release with these packages
             - task: GitHubRelease@1
               displayName: Create GitHub Release
               inputs:
