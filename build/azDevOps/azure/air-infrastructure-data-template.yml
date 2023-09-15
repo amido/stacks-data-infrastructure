@@ -72,7 +72,6 @@ stages:
               ARM_SUBSCRIPTION_ID: "$(azure-subscription-id)"
               ARM_CLIENT_ID: "$(azure-client-id)"
               ARM_CLIENT_SECRET: "$(azure-client-secret)"
-
   {{ range .Input.Environment }}
     - stage: {{ .StageName }}
       dependsOn: {{ range .DependsOn }}
@@ -139,8 +138,6 @@ stages:
                       TF_VAR_core_environment: $(core_environment)
                       TF_VAR_name_component: $(component)
                       TF_VAR_resource_group_location: $(region)
-                      TF_VAR_create_cdn_endpoint: false
-                      TF_VAR_create_dns_record: {{if .IsProduction}}true{{else}}false{{end}}
                       TF_VAR_name_company: $(company)
                       TF_VAR_name_project: $(project)
                       TF_VAR_name_domain: $(domain)
@@ -157,12 +154,10 @@ stages:
                       TF_VAR_public_subnet_prefix: $(public_subnet_prefix)
                       TF_VAR_private_subnet_prefix: $(private_subnet_prefix)
                       TF_VAR_pe_subnet_prefix: $(pe_subnet_prefix)
-                      TF_VAR_link_dns_{{if .IsProduction}}prod{{else}}dev{{end}}_spoke_network: true
                       TF_VAR_public_network_access_enabled: {{if .IsProduction}}false{{else}}true{{end}}
                       TF_VAR_browser_authentication_enabled: {{if .IsProduction}}true{{else}}false{{end}}
                       TF_VAR_azure_client_secret: $(azure-client-secret)
     {{ end }}
-
     - stage: Release
       dependsOn:
         - Prod #TODO: assumes we have a stage called Prod
