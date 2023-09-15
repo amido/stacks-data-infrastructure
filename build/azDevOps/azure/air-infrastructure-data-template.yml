@@ -156,6 +156,7 @@ stages:
                       TF_VAR_pe_subnet_prefix: $(pe_subnet_prefix)
                       TF_VAR_public_network_access_enabled: {{if .IsProduction}}false{{else}}true{{end}}
                       TF_VAR_browser_authentication_enabled: {{if .IsProduction}}true{{else}}false{{end}}
+                      TF_VAR_link_dns_spoke_network: true
                       TF_VAR_azure_client_secret: $(azure-client-secret)
     {{ end }}
     - stage: Release
