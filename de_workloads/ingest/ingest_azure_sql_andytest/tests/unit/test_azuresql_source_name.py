@@ -6,7 +6,7 @@ from utils.config_utils import (
     load_configs_as_list,
 )
 
-CONFIG_PATH = "de_workloads/ingest/Ingest_azure_sql_andytest/config"
+CONFIG_PATH = "de_workloads/ingest/ingest_azure_sql_andytest/config"
 INGEST_CONFIG_PATH = f"{CONFIG_PATH}/ingest_sources"
 INGEST_CONFIG_SCHEMA = f"{CONFIG_PATH}/schema/ingest_config_schema.json"
 
