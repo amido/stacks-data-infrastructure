@@ -226,7 +226,7 @@ resource "azurerm_data_factory_managed_private_endpoint" "db_auth_pe" {
   depends_on = [module.adb]
 }
 
-resource "azapi_update_resource" "approve_adb_private_endpoint_connection" {
+resource "azapi_update_resource" "approve_adb_auth_private_endpoint_connection" {
   type      = "Microsoft.Databricks/workspaces/privateEndpointConnections@2022-02-01"
   name      = local.adb_auth_private_endpoint_connection_name
   parent_id = module.adb.adb_databricks_id
