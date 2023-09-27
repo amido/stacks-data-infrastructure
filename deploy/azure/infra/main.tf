@@ -80,27 +80,25 @@ resource "azurerm_data_factory_managed_private_endpoint" "blob_pe" {
   subresource_name   = "blob"
 }
 
-resource "null_resource" "approve_adf_blob_private_endpoint" {
+resource "azapi_update_resource" "approve_storage_account_blob_private_endpoint_connection" {
+  type      = "Microsoft.Storage/storageAccounts/privateEndpointConnections"
+  name      = local.storage_account_blob_private_endpoint_connection_name
+  parent_id = module.adls_default.storage_account_ids[0]
 
-  triggers = {
-    always_run = timestamp()
-  }
-  provisioner "local-exec" {
-    #  interpreter = ["sh", "-Command"]
-    command = <<-EOT
-        az login --service-principal -u ${data.azurerm_client_config.current.client_id} -p ${var.azure_client_secret} --tenant ${data.azurerm_client_config.current.tenant_id}
-        text=$(az network private-endpoint-connection list --id ${module.adls_default.storage_account_ids[0]})
-        pendingPE=`echo $text | jq -r '.[] | select(.properties.privateLinkServiceConnectionState.status == "Pending") | .id'`
-        for id in $pendingPE
-        do
-            echo "$id is in a pending state"
-            az network private-endpoint-connection approve --id "$id"
-        done
-        EOT
-  }
+  body = jsonencode({
+    properties = {
+      privateLinkServiceConnectionState = {
+        description = "Approved via Terraform - ${azurerm_data_factory_managed_private_endpoint.blob_pe.name}" # To identify which managed private endpoint this connection belongs to we add the managed private endpoint name to the description
+        status      = "Approved"
+      }
+    }
+  })
 
-  depends_on = [azurerm_data_factory_managed_private_endpoint.blob_pe]
+  lifecycle {
+    ignore_changes = all # We don't want to touch this after creation
+  }
 }
+
 
 resource "azurerm_data_factory_managed_private_endpoint" "adls_pe" {
   name               = var.name_pe_dfs
@@ -109,26 +107,23 @@ resource "azurerm_data_factory_managed_private_endpoint" "adls_pe" {
   subresource_name   = "dfs"
 }
 
-resource "null_resource" "approve_adf_adls_private_endpoint" {
+resource "azapi_update_resource" "approve_adls_account_dfs_private_endpoint_connection" {
+  type      = "Microsoft.Storage/storageAccounts/privateEndpointConnections"
+  name      = local.adls_account_dfs_private_endpoint_connection_name
+  parent_id = module.adls_default.storage_account_ids[1]
 
-  triggers = {
-    always_run = timestamp()
-  }
-  provisioner "local-exec" {
-    #  interpreter = ["sh", "-Command"]
-    command = <<-EOT
-        az login --service-principal -u ${data.azurerm_client_config.current.client_id} -p ${var.azure_client_secret} --tenant ${data.azurerm_client_config.current.tenant_id}
-        text=$(az network private-endpoint-connection list --id ${module.adls_default.storage_account_ids[1]})
-        pendingPE=`echo $text | jq -r '.[] | select(.properties.privateLinkServiceConnectionState.status == "Pending") | .id'`
-        for id in $pendingPE
-        do
-            echo "$id is in a pending state"
-            az network private-endpoint-connection approve --id "$id"
-        done
-        EOT
-  }
+  body = jsonencode({
+    properties = {
+      privateLinkServiceConnectionState = {
+        description = "Approved via Terraform - ${azurerm_data_factory_managed_private_endpoint.adls_pe.name}" # To identify which managed private endpoint this connection belongs to we add the managed private endpoint name to the description
+        status      = "Approved"
+      }
+    }
+  })
 
-  depends_on = [azurerm_data_factory_managed_private_endpoint.adls_pe]
+  lifecycle {
+    ignore_changes = all # We don't want to touch this after creation
+  }
 }
 resource "azurerm_data_factory_managed_private_endpoint" "kv_pe" {
   name               = var.name_pe_kv
@@ -137,27 +132,27 @@ resource "azurerm_data_factory_managed_private_endpoint" "kv_pe" {
   subresource_name   = "vault"
 }
 
-resource "null_resource" "approve_adf_kv_private_endpoint" {
+# resource "null_resource" "approve_adf_kv_private_endpoint" {
 
-  triggers = {
-    always_run = timestamp()
-  }
-  provisioner "local-exec" {
-    #  interpreter = ["sh", "-Command"]
-    command = <<-EOT
-        az login --service-principal -u ${data.azurerm_client_config.current.client_id} -p ${var.azure_client_secret} --tenant ${data.azurerm_client_config.current.tenant_id}
-        text=$(az network private-endpoint-connection list --id ${module.kv_default.id})
-        pendingPE=`echo $text | jq -r '.[] | select(.properties.privateLinkServiceConnectionState.status == "Pending") | .id'`
-        for id in $pendingPE
-        do
-            echo "$id is in a pending state"
-            az network private-endpoint-connection approve --id "$id"
-        done
-        EOT
-  }
+#   triggers = {
+#     always_run = timestamp()
+#   }
+#   provisioner "local-exec" {
+#     #  interpreter = ["sh", "-Command"]
+#     command = <<-EOT
+#         az login --service-principal -u ${data.azurerm_client_config.current.client_id} -p ${var.azure_client_secret} --tenant ${data.azurerm_client_config.current.tenant_id}
+#         text=$(az network private-endpoint-connection list --id ${module.kv_default.id})
+#         pendingPE=`echo $text | jq -r '.[] | select(.properties.privateLinkServiceConnectionState.status == "Pending") | .id'`
+#         for id in $pendingPE
+#         do
+#             echo "$id is in a pending state"
+#             az network private-endpoint-connection approve --id "$id"
+#         done
+#         EOT
+#   }
 
-  depends_on = [azurerm_data_factory_managed_private_endpoint.kv_pe]
-}
+#   depends_on = [azurerm_data_factory_managed_private_endpoint.kv_pe]
+# }
 
 resource "azurerm_data_factory_managed_private_endpoint" "sql_pe" {
   name               = var.name_pe_sql
@@ -166,27 +161,27 @@ resource "azurerm_data_factory_managed_private_endpoint" "sql_pe" {
   subresource_name   = "sqlServer"
 }
 
-resource "null_resource" "approve_adf_sql_private_endpoint" {
+# resource "null_resource" "approve_adf_sql_private_endpoint" {
 
-  triggers = {
-    always_run = timestamp()
-  }
-  provisioner "local-exec" {
-    #  interpreter = ["sh", "-Command"]
-    command = <<-EOT
-        az login --service-principal -u ${data.azurerm_client_config.current.client_id} -p ${var.azure_client_secret} --tenant ${data.azurerm_client_config.current.tenant_id}
-        text=$(az network private-endpoint-connection list --id ${module.sql.sql_server_id})
-        pendingPE=`echo $text | jq -r '.[] | select(.properties.privateLinkServiceConnectionState.status == "Pending") | .id'`
-        for id in $pendingPE
-        do
-            echo "$id is in a pending state"
-            az network private-endpoint-connection approve --id "$id" --description "Approved"
-        done
-        EOT
-  }
+#   triggers = {
+#     always_run = timestamp()
+#   }
+#   provisioner "local-exec" {
+#     #  interpreter = ["sh", "-Command"]
+#     command = <<-EOT
+#         az login --service-principal -u ${data.azurerm_client_config.current.client_id} -p ${var.azure_client_secret} --tenant ${data.azurerm_client_config.current.tenant_id}
+#         text=$(az network private-endpoint-connection list --id ${module.sql.sql_server_id})
+#         pendingPE=`echo $text | jq -r '.[] | select(.properties.privateLinkServiceConnectionState.status == "Pending") | .id'`
+#         for id in $pendingPE
+#         do
+#             echo "$id is in a pending state"
+#             az network private-endpoint-connection approve --id "$id" --description "Approved"
+#         done
+#         EOT
+#   }
 
-  depends_on = [azurerm_data_factory_managed_private_endpoint.sql_pe]
-}
+#   depends_on = [azurerm_data_factory_managed_private_endpoint.sql_pe]
+# }
 
 
 resource "azurerm_data_factory_managed_private_endpoint" "db_pe" {
@@ -207,27 +202,27 @@ resource "azurerm_data_factory_managed_private_endpoint" "db_auth_pe" {
   depends_on = [module.adb]
 }
 
-resource "null_resource" "approve_adf_db_private_endpoint" {
+# resource "null_resource" "approve_adf_db_private_endpoint" {
 
-  triggers = {
-    always_run = timestamp()
-  }
-  provisioner "local-exec" {
-    #  interpreter = ["sh", "-Command"]
-    command = <<-EOT
-        az login --service-principal -u ${data.azurerm_client_config.current.client_id} -p ${var.azure_client_secret} --tenant ${data.azurerm_client_config.current.tenant_id}
-        text=$(az network private-endpoint-connection list --id ${module.adb.adb_databricks_id})
-        pendingPE=`echo $text | jq -r '.[] | select(.properties.privateLinkServiceConnectionState.status == "Pending") | .id'`
-        for id in $pendingPE
-        do
-            echo "$id is in a pending state"
-            az network private-endpoint-connection approve --id "$id"
-        done
-        EOT
-  }
+#   triggers = {
+#     always_run = timestamp()
+#   }
+#   provisioner "local-exec" {
+#     #  interpreter = ["sh", "-Command"]
+#     command = <<-EOT
+#         az login --service-principal -u ${data.azurerm_client_config.current.client_id} -p ${var.azure_client_secret} --tenant ${data.azurerm_client_config.current.tenant_id}
+#         text=$(az network private-endpoint-connection list --id ${module.adb.adb_databricks_id})
+#         pendingPE=`echo $text | jq -r '.[] | select(.properties.privateLinkServiceConnectionState.status == "Pending") | .id'`
+#         for id in $pendingPE
+#         do
+#             echo "$id is in a pending state"
+#             az network private-endpoint-connection approve --id "$id"
+#         done
+#         EOT
+#   }
 
-  depends_on = [azurerm_data_factory_managed_private_endpoint.db_auth_pe, azurerm_data_factory_managed_private_endpoint.db_pe]
-}
+#   depends_on = [azurerm_data_factory_managed_private_endpoint.db_auth_pe, azurerm_data_factory_managed_private_endpoint.db_pe]
+# }
 
 resource "azurerm_role_assignment" "kv_role" {
   scope                = module.kv_default.id

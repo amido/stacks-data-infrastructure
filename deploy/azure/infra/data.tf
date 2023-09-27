@@ -44,3 +44,23 @@ data "azurerm_private_dns_zone" "adb_private_dns_zone" {
   name                = var.adb_private_zone
   resource_group_name = var.dns_zone_resource_group
 }
+
+data "azapi_resource" "storage_account_private_endpoint_connection" {
+  type                   = "Microsoft.Storage/storageAccounts"
+  resource_id            = module.adls_default.storage_account_ids[0]
+  response_export_values = ["properties.privateEndpointConnections."]
+
+  depends_on = [
+    azurerm_data_factory_managed_private_endpoint.blob_pe
+  ]
+}
+
+data "azapi_resource" "adls_account_private_endpoint_connection" {
+  type                   = "Microsoft.Storage/storageAccounts"
+  resource_id            = module.adls_default.storage_account_ids[1]
+  response_export_values = ["properties.privateEndpointConnections."]
+
+  depends_on = [
+    azurerm_data_factory_managed_private_endpoint.alds_pe
+  ]
+}
