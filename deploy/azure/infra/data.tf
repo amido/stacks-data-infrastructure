@@ -86,7 +86,7 @@ data "azapi_resource" "sql_private_endpoint_connection" {
 }
 
 data "azapi_resource" "adb_private_endpoint_connection" {
-  type                   = "Microsoft.Databricks/workspaces@2022-02-01"
+  type                   = "Microsoft.Databricks/workspaces@2023-02-01"
   resource_id            = module.adb.adb_databricks_id
   response_export_values = ["properties.privateEndpointConnections."]
 
