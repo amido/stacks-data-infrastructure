@@ -81,7 +81,7 @@ resource "azurerm_data_factory_managed_private_endpoint" "blob_pe" {
 }
 
 resource "azapi_update_resource" "approve_storage_account_blob_private_endpoint_connection" {
-  type      = "Microsoft.Storage/storageAccounts/privateEndpointConnections"
+  type      = "Microsoft.Storage/storageAccounts/privateEndpointConnections@2022-09-01"
   name      = local.storage_account_blob_private_endpoint_connection_name
   parent_id = module.adls_default.storage_account_ids[0]
 
@@ -108,7 +108,7 @@ resource "azurerm_data_factory_managed_private_endpoint" "adls_pe" {
 }
 
 resource "azapi_update_resource" "approve_adls_account_dfs_private_endpoint_connection" {
-  type      = "Microsoft.Storage/storageAccounts/privateEndpointConnections"
+  type      = "Microsoft.Storage/storageAccounts/privateEndpointConnections@2022-09-01"
   name      = local.adls_account_dfs_private_endpoint_connection_name
   parent_id = module.adls_default.storage_account_ids[1]
 
