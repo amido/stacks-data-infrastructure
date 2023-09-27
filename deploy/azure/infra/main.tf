@@ -97,6 +97,7 @@ resource "azapi_update_resource" "approve_storage_account_blob_private_endpoint_
   lifecycle {
     ignore_changes = all # We don't want to touch this after creation
   }
+  depends_on = [azurerm_data_factory_managed_private_endpoint.blob_pe]
 }
 
 
