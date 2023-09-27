@@ -141,7 +141,7 @@ resource "null_resource" "approve_private_endpoints" {
         for id in $pendingPE
         do
             echo "$id is in a pending state"
-            az network private-endpoint-connection approve --id "$id"
+            az network private-endpoint-connection approve --id "$id" --description "Approved"
         done
     EOT
   }
