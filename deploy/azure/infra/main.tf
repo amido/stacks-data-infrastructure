@@ -144,7 +144,7 @@ resource "azapi_update_resource" "approve_kv_private_endpoint_connection" {
   body = jsonencode({
     properties = {
       privateLinkServiceConnectionState = {
-        description = "Approved via Terraform - ${azurerm_data_factory_managed_private_endpoint.adls_pe.name}" # To identify which managed private endpoint this connection belongs to we add the managed private endpoint name to the description
+        description = "Approved via Terraform - ${azurerm_data_factory_managed_private_endpoint.kv_pe.name}" # To identify which managed private endpoint this connection belongs to we add the managed private endpoint name to the description
         status      = "Approved"
       }
     }
@@ -173,7 +173,7 @@ resource "azapi_update_resource" "approve_sql_private_endpoint_connection" {
   body = jsonencode({
     properties = {
       privateLinkServiceConnectionState = {
-        description = "Approved via Terraform - ${azurerm_data_factory_managed_private_endpoint.adls_pe.name}" # To identify which managed private endpoint this connection belongs to we add the managed private endpoint name to the description
+        description = "Approved via Terraform - ${azurerm_data_factory_managed_private_endpoint.sql_pe.name}" # To identify which managed private endpoint this connection belongs to we add the managed private endpoint name to the description
         status      = "Approved"
       }
     }
@@ -204,7 +204,7 @@ resource "azapi_update_resource" "approve_adb_private_endpoint_connection" {
   body = jsonencode({
     properties = {
       privateLinkServiceConnectionState = {
-        description = "Approved via Terraform - ${azurerm_data_factory_managed_private_endpoint.adls_pe.name}" # To identify which managed private endpoint this connection belongs to we add the managed private endpoint name to the description
+        description = "Approved via Terraform - ${azurerm_data_factory_managed_private_endpoint.db_pe.name}" # To identify which managed private endpoint this connection belongs to we add the managed private endpoint name to the description
         status      = "Approved"
       }
     }
@@ -234,7 +234,7 @@ resource "azapi_update_resource" "approve_adb_auth_private_endpoint_connection" 
   body = jsonencode({
     properties = {
       privateLinkServiceConnectionState = {
-        description = "Approved via Terraform - ${azurerm_data_factory_managed_private_endpoint.adls_pe.name}" # To identify which managed private endpoint this connection belongs to we add the managed private endpoint name to the description
+        description = "Approved via Terraform - ${azurerm_data_factory_managed_private_endpoint.db_auth_pe.name}" # To identify which managed private endpoint this connection belongs to we add the managed private endpoint name to the description
         status      = "Approved"
       }
     }
