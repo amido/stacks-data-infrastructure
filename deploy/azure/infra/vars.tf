@@ -540,3 +540,20 @@ variable "sql_public_network_access_enabled" {
   default     = false
   description = "Allow public network access to sql server. Set as true or false."
 }
+
+############################################
+# ADF PRIVATE ENDPOINTS
+############################################
+
+variable "private_endpoint_resource_ids" {
+  description = "A map of resource IDs for private endpoint approval."
+  type        = map(string)
+  default = {
+    blob = module.adls_default.storage_account_ids[0]
+    adls = module.adls_default.storage_account_ids[1]
+    kv   = module.kv_default.id
+    sql  = module.sql.sql_server_id
+    adb  = module.adb.adb_databricks_id
+    # Add more resources as needed
+  }
+}
