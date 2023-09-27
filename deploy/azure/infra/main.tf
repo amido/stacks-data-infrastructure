@@ -135,15 +135,34 @@ resource "null_resource" "approve_private_endpoints" {
 
   provisioner "local-exec" {
     command = <<-EOT
-      ./approve_private_endpoints.sh "${each.value}" \
-        "${data.azurerm_client_config.current.client_id}" \
-        "${var.azure_client_secret}" \
-        "${data.azurerm_client_config.current.tenant_id}"
+        az login --service-principal -u ${data.azurerm_client_config.current.client_id} -p ${var.azure_client_secret} --tenant ${data.azurerm_client_config.current.tenant_id}
+        text=$(az network private-endpoint-connection list --id ${each.value})
+        pendingPE=`echo $text | jq -r '.[] | select(.properties.privateLinkServiceConnectionState.status == "Pending") | .id'`
+        for id in $pendingPE
+        do
+            echo "$id is in a pending state"
+            az network private-endpoint-connection approve --id "$id"
+        done
     EOT
   }
   depends_on = [azurerm_data_factory_managed_private_endpoint.db_auth_pe, azurerm_data_factory_managed_private_endpoint.db_pe, azurerm_data_factory_managed_private_endpoint.sql_pe, azurerm_data_factory_managed_private_endpoint.kv_pe, azurerm_data_factory_managed_private_endpoint.adls_pe, azurerm_data_factory_managed_private_endpoint.blob_pe]
 }
 
+
+
+provisioner "local-exec" {
+  #  interpreter = ["sh", "-Command"]
+  command = <<-EOT
+        az login --service-principal -u ${data.azurerm_client_config.current.client_id} -p ${var.azure_client_secret} --tenant ${data.azurerm_client_config.current.tenant_id}
+        text=$(az network private-endpoint-connection list --id ${module.adls_default.storage_account_ids[0]})
+        pendingPE=`echo $text | jq -r '.[] | select(.properties.privateLinkServiceConnectionState.status == "Pending") | .id'`
+        for id in $pendingPE
+        do
+            echo "$id is in a pending state"
+            az network private-endpoint-connection approve --id "$id"
+        done
+        EOT
+}
 resource "azurerm_role_assignment" "kv_role" {
   scope                = module.kv_default.id
   role_definition_name = var.kv_role_adf
