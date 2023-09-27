@@ -7,7 +7,7 @@ approve_private_endpoint() {
     pendingPE=$(echo "$text" | jq -r '.[] | select(.properties.privateLinkServiceConnectionState.status == "Pending") | .id')
     for id in $pendingPE; do
         echo "$id is in a pending state"
-        az network private-endpoint-connection approve --id "$id"
+        az network private-endpoint-connection approve --id "$id" --description "Approved"
     done
 }
 
