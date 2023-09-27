@@ -120,7 +120,14 @@ resource "azurerm_data_factory_managed_private_endpoint" "db_auth_pe" {
 }
 
 resource "null_resource" "approve_private_endpoints" {
-  for_each = var.private_endpoint_resource_ids
+  for_each = {
+    blob = module.adls_default.storage_account_ids[0]
+    adls = module.adls_default.storage_account_ids[1]
+    kv   = module.kv_default.id
+    sql  = module.sql.sql_server_id
+    adb  = module.adb.adb_databricks_id
+    # Add more resources as needed
+  }
 
   triggers = {
     always_run = timestamp()
