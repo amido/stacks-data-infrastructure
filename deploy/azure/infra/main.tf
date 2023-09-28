@@ -136,44 +136,15 @@ resource "azurerm_data_factory_managed_private_endpoint" "kv_pe" {
   subresource_name   = "vault"
 }
 
-# resource "azapi_update_resource" "approve_kv_private_endpoint_connection" {
-#   type      = "Microsoft.Keyvault/vaults/privateEndpointConnections@2022-07-01"
-#   name      = local.kv_private_endpoint_connection_name
-#   parent_id = module.kv_default.id
-
-#   body = jsonencode({
-#     properties = {
-#       privateLinkServiceConnectionState = {
-#         description = "Approved via Terraform - ${azurerm_data_factory_managed_private_endpoint.kv_pe.name}" # To identify which managed private endpoint this connection belongs to we add the managed private endpoint name to the description
-#         status      = "Approved"
-#       }
-#     }
-#   })
-
-#   lifecycle {
-#     ignore_changes = all # We don't want to touch this after creation
-#   }
-
-#   depends_on = [azurerm_data_factory_managed_private_endpoint.kv_pe]
-
-# }
-
-resource "azurerm_data_factory_managed_private_endpoint" "sql_pe" {
-  name               = var.name_pe_sql
-  data_factory_id    = module.adf.adf_factory_id
-  target_resource_id = module.sql.sql_server_id
-  subresource_name   = "sqlServer"
-}
-
-resource "azapi_update_resource" "approve_sql_private_endpoint_connection" {
-  type      = "Microsoft.Sql/servers/privateEndpointConnections@2021-11-01"
-  name      = local.sql_private_endpoint_connection_name
-  parent_id = module.sql.sql_server_id
+resource "azapi_update_resource" "approve_kv_private_endpoint_connection" {
+  type      = "Microsoft.Keyvault/vaults/privateEndpointConnections@2022-07-01"
+  name      = local.kv_private_endpoint_connection_name
+  parent_id = module.kv_default.id
 
   body = jsonencode({
     properties = {
       privateLinkServiceConnectionState = {
-        description = "Approved via Terraform - ${azurerm_data_factory_managed_private_endpoint.sql_pe.name}" # To identify which managed private endpoint this connection belongs to we add the managed private endpoint name to the description
+        description = "Approved via Terraform - ${azurerm_data_factory_managed_private_endpoint.kv_pe.name}" # To identify which managed private endpoint this connection belongs to we add the managed private endpoint name to the description
         status      = "Approved"
       }
     }
@@ -183,9 +154,38 @@ resource "azapi_update_resource" "approve_sql_private_endpoint_connection" {
     ignore_changes = all # We don't want to touch this after creation
   }
 
-  depends_on = [azurerm_data_factory_managed_private_endpoint.sql_pe]
+  depends_on = [azurerm_data_factory_managed_private_endpoint.kv_pe]
 
 }
+
+resource "azurerm_data_factory_managed_private_endpoint" "sql_pe" {
+  name               = var.name_pe_sql
+  data_factory_id    = module.adf.adf_factory_id
+  target_resource_id = module.sql.sql_server_id
+  subresource_name   = "sqlServer"
+}
+
+# resource "azapi_update_resource" "approve_sql_private_endpoint_connection" {
+#   type      = "Microsoft.Sql/servers/privateEndpointConnections@2021-11-01"
+#   name      = local.sql_private_endpoint_connection_name
+#   parent_id = module.sql.sql_server_id
+
+#   body = jsonencode({
+#     properties = {
+#       privateLinkServiceConnectionState = {
+#         description = "Approved via Terraform - ${azurerm_data_factory_managed_private_endpoint.sql_pe.name}" # To identify which managed private endpoint this connection belongs to we add the managed private endpoint name to the description
+#         status      = "Approved"
+#       }
+#     }
+#   })
+
+#   lifecycle {
+#     ignore_changes = all # We don't want to touch this after creation
+#   }
+
+#   depends_on = [azurerm_data_factory_managed_private_endpoint.sql_pe]
+
+# }
 
 resource "azurerm_data_factory_managed_private_endpoint" "db_pe" {
   name               = var.name_pe_db
