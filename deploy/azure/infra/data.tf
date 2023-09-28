@@ -75,22 +75,22 @@ data "azapi_resource" "adls_account_private_endpoint_connection" {
 #   ]
 # }
 
-data "azapi_resource" "sql_private_endpoint_connection" {
-  type                   = "Microsoft.Sql/servers@2021-11-01"
-  resource_id            = module.sql.sql_server_id
-  response_export_values = ["properties.privateEndpointConnections."]
+# data "azapi_resource" "sql_private_endpoint_connection" {
+#   type                   = "Microsoft.Sql/servers@2021-11-01"
+#   resource_id            = module.sql.sql_server_id
+#   response_export_values = ["properties.privateEndpointConnections."]
 
-  depends_on = [
-    azurerm_data_factory_managed_private_endpoint.sql_pe
-  ]
-}
+#   depends_on = [
+#     azurerm_data_factory_managed_private_endpoint.sql_pe
+#   ]
+# }
 
-data "azapi_resource" "adb_private_endpoint_connection" {
-  type                   = "Microsoft.Databricks/workspaces@2023-02-01"
-  resource_id            = module.adb.adb_databricks_id
-  response_export_values = ["properties.privateEndpointConnections."]
+# data "azapi_resource" "adb_private_endpoint_connection" {
+#   type                   = "Microsoft.Databricks/workspaces@2023-02-01"
+#   resource_id            = module.adb.adb_databricks_id
+#   response_export_values = ["properties.privateEndpointConnections."]
 
-  depends_on = [
-    azurerm_data_factory_managed_private_endpoint.db_pe, azurerm_data_factory_managed_private_endpoint.db_auth_pe
-  ]
-}
+#   depends_on = [
+#     azurerm_data_factory_managed_private_endpoint.db_pe, azurerm_data_factory_managed_private_endpoint.db_auth_pe
+#   ]
+# }

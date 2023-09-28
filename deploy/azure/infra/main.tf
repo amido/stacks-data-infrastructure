@@ -165,27 +165,27 @@ resource "azurerm_data_factory_managed_private_endpoint" "sql_pe" {
   subresource_name   = "sqlServer"
 }
 
-resource "azapi_update_resource" "approve_sql_private_endpoint_connection" {
-  type      = "Microsoft.Sql/servers/privateEndpointConnections@2021-11-01"
-  name      = local.sql_private_endpoint_connection_name
-  parent_id = module.sql.sql_server_id
+# resource "azapi_update_resource" "approve_sql_private_endpoint_connection" {
+#   type      = "Microsoft.Sql/servers/privateEndpointConnections@2021-11-01"
+#   name      = local.sql_private_endpoint_connection_name
+#   parent_id = module.sql.sql_server_id
 
-  body = jsonencode({
-    properties = {
-      privateLinkServiceConnectionState = {
-        description = "Approved via Terraform - ${azurerm_data_factory_managed_private_endpoint.sql_pe.name}" # To identify which managed private endpoint this connection belongs to we add the managed private endpoint name to the description
-        status      = "Approved"
-      }
-    }
-  })
+#   body = jsonencode({
+#     properties = {
+#       privateLinkServiceConnectionState = {
+#         description = "Approved via Terraform - ${azurerm_data_factory_managed_private_endpoint.sql_pe.name}" # To identify which managed private endpoint this connection belongs to we add the managed private endpoint name to the description
+#         status      = "Approved"
+#       }
+#     }
+#   })
 
-  lifecycle {
-    ignore_changes = all # We don't want to touch this after creation
-  }
+#   lifecycle {
+#     ignore_changes = all # We don't want to touch this after creation
+#   }
 
-  depends_on = [azurerm_data_factory_managed_private_endpoint.sql_pe]
+#   depends_on = [azurerm_data_factory_managed_private_endpoint.sql_pe]
 
-}
+# }
 
 resource "azurerm_data_factory_managed_private_endpoint" "db_pe" {
   name               = var.name_pe_db
@@ -196,27 +196,27 @@ resource "azurerm_data_factory_managed_private_endpoint" "db_pe" {
   depends_on = [module.adb]
 }
 
-resource "azapi_update_resource" "approve_adb_private_endpoint_connection" {
-  type      = "Microsoft.Databricks/workspaces/privateEndpointConnections@2023-02-01"
-  name      = local.adb_private_endpoint_connection_name
-  parent_id = module.adb.adb_databricks_id
+# resource "azapi_update_resource" "approve_adb_private_endpoint_connection" {
+#   type      = "Microsoft.Databricks/workspaces/privateEndpointConnections@2023-02-01"
+#   name      = local.adb_private_endpoint_connection_name
+#   parent_id = module.adb.adb_databricks_id
 
-  body = jsonencode({
-    properties = {
-      privateLinkServiceConnectionState = {
-        description = "Approved via Terraform - ${azurerm_data_factory_managed_private_endpoint.db_pe.name}" # To identify which managed private endpoint this connection belongs to we add the managed private endpoint name to the description
-        status      = "Approved"
-      }
-    }
-  })
+#   body = jsonencode({
+#     properties = {
+#       privateLinkServiceConnectionState = {
+#         description = "Approved via Terraform - ${azurerm_data_factory_managed_private_endpoint.db_pe.name}" # To identify which managed private endpoint this connection belongs to we add the managed private endpoint name to the description
+#         status      = "Approved"
+#       }
+#     }
+#   })
 
-  lifecycle {
-    ignore_changes = all # We don't want to touch this after creation
-  }
+#   lifecycle {
+#     ignore_changes = all # We don't want to touch this after creation
+#   }
 
-  depends_on = [azurerm_data_factory_managed_private_endpoint.db_pe]
+#   depends_on = [azurerm_data_factory_managed_private_endpoint.db_pe]
 
-}
+# }
 resource "azurerm_data_factory_managed_private_endpoint" "db_auth_pe" {
   name               = "${var.name_pe_db}_auth"
   data_factory_id    = module.adf.adf_factory_id
@@ -226,27 +226,27 @@ resource "azurerm_data_factory_managed_private_endpoint" "db_auth_pe" {
   depends_on = [module.adb]
 }
 
-resource "azapi_update_resource" "approve_adb_auth_private_endpoint_connection" {
-  type      = "Microsoft.Databricks/workspaces/privateEndpointConnections@2023-02-01"
-  name      = local.adb_auth_private_endpoint_connection_name
-  parent_id = module.adb.adb_databricks_id
+# resource "azapi_update_resource" "approve_adb_auth_private_endpoint_connection" {
+#   type      = "Microsoft.Databricks/workspaces/privateEndpointConnections@2023-02-01"
+#   name      = local.adb_auth_private_endpoint_connection_name
+#   parent_id = module.adb.adb_databricks_id
 
-  body = jsonencode({
-    properties = {
-      privateLinkServiceConnectionState = {
-        description = "Approved via Terraform - ${azurerm_data_factory_managed_private_endpoint.db_auth_pe.name}" # To identify which managed private endpoint this connection belongs to we add the managed private endpoint name to the description
-        status      = "Approved"
-      }
-    }
-  })
+#   body = jsonencode({
+#     properties = {
+#       privateLinkServiceConnectionState = {
+#         description = "Approved via Terraform - ${azurerm_data_factory_managed_private_endpoint.db_auth_pe.name}" # To identify which managed private endpoint this connection belongs to we add the managed private endpoint name to the description
+#         status      = "Approved"
+#       }
+#     }
+#   })
 
-  lifecycle {
-    ignore_changes = all # We don't want to touch this after creation
-  }
+#   lifecycle {
+#     ignore_changes = all # We don't want to touch this after creation
+#   }
 
-  depends_on = [azurerm_data_factory_managed_private_endpoint.db_pe]
+#   depends_on = [azurerm_data_factory_managed_private_endpoint.db_pe]
 
-}
+# }
 
 resource "azurerm_role_assignment" "kv_role" {
   scope                = module.kv_default.id
