@@ -16,12 +16,13 @@ locals {
     endswith(connection.properties.privateLinkServiceConnectionState.description, azurerm_data_factory_managed_private_endpoint.adls_pe.name)
   ])
 
-  ## KV
+  # KV
   # kv_private_endpoint_connection_name = one([
   #   for connection in jsondecode(data.azapi_resource.kv_private_endpoint_connection.output).properties.privateEndpointConnections
   #   : connection.name
   #   if
-  #   endswith(connection.properties.privateLinkServiceConnectionState.status, "Pending")
+  #   endswith(connection.properties.privateLinkServiceConnectionState.description, azurerm_data_factory_managed_private_endpoint.kv_pe.name)
+  #   #endswith(connection.properties.privateLinkServiceConnectionState.status, "Pending")
   # ])
 
   # SQL
