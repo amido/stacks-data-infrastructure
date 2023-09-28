@@ -17,12 +17,12 @@ locals {
   ])
 
   ## KV
-  kv_private_endpoint_connection_name = one([
-    for connection in jsondecode(data.azapi_resource.kv_private_endpoint_connection.output).properties.privateEndpointConnections
-    : connection.name
-    if
-    endswith(connection.properties.privateLinkServiceConnectionState.description, azurerm_data_factory_managed_private_endpoint.kv_pe.name)
-  ])
+  # kv_private_endpoint_connection_name = one([
+  #   for connection in jsondecode(data.azapi_resource.kv_private_endpoint_connection.output).properties.privateEndpointConnections
+  #   : connection.name
+  #   if
+  #   endswith(connection.properties.privateLinkServiceConnectionState.description, azurerm_data_factory_managed_private_endpoint.kv_pe.name)
+  # ])
 
   ## SQL
   sql_private_endpoint_connection_name = one([
