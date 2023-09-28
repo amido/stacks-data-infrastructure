@@ -17,12 +17,12 @@ locals {
   ])
 
   ## KV
-  kv_private_endpoint_connection_name = one([
-    for connection in jsondecode(data.azapi_resource.kv_private_endpoint_connection.output).properties.privateEndpointConnections
-    : connection.name
-    if
-    endswith(connection.properties.privateLinkServiceConnectionState.status, "Pending")
-  ])
+  # kv_private_endpoint_connection_name = one([
+  #   for connection in jsondecode(data.azapi_resource.kv_private_endpoint_connection.output).properties.privateEndpointConnections
+  #   : connection.name
+  #   if
+  #   endswith(connection.properties.privateLinkServiceConnectionState.status, "Pending")
+  # ])
 
   ## SQL
   sql_private_endpoint_connection_name = one([
