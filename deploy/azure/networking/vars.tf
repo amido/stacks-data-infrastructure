@@ -241,6 +241,31 @@ variable "network_details" {
         }
     } },
 
+    "markc-stacks-euw-nonprod" = {
+      name                = "markc-stacks-euw-nonprod"
+      address_space       = ["10.10.0.0/16"]
+      dns_servers         = []
+      resource_group_name = "markc-stacks-euw-nonprod-network"
+      is_hub              = false
+      link_to_private_dns = true
+      subnet_details = {
+        "markc-stacks-euw-nonprod-pe" = {
+          sub_name                                      = "markc-stacks-euw-nonprod-pe"
+          sub_address_prefix                            = ["10.10.1.0/24"]
+          private_endpoint_network_policies_enabled     = true
+          private_link_service_network_policies_enabled = true
+          service_endpoints                             = ["Microsoft.AzureActiveDirectory", "Microsoft.KeyVault", "Microsoft.ServiceBus", "Microsoft.Sql", "Microsoft.Storage"]
+        },
+        "markc-stacks-euw-nonprod" = {
+          sub_name                                      = "markc-stacks-euw-nonprod"
+          sub_address_prefix                            = ["10.10.2.0/24"]
+          private_endpoint_network_policies_enabled     = true
+          private_link_service_network_policies_enabled = true
+          service_endpoints                             = ["Microsoft.AzureActiveDirectory", "Microsoft.KeyVault", "Microsoft.ServiceBus", "Microsoft.Sql", "Microsoft.Storage"]
+        }
+
+    } },
+
   }
 }
 
