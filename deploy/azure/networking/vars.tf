@@ -288,6 +288,56 @@ variable "network_details" {
           service_endpoints                             = ["Microsoft.AzureActiveDirectory", "Microsoft.KeyVault", "Microsoft.ServiceBus", "Microsoft.Sql", "Microsoft.Storage"]
         }
     } },
+
+    "markc1-stacks-euw-nonprod" = {
+      name                = "markc1-stacks-euw-nonprod"
+      address_space       = ["10.10.0.0/16"]
+      dns_servers         = []
+      resource_group_name = "markc-stacks-euw-nonprod-network"
+      is_hub              = false
+      link_to_private_dns = true
+      subnet_details = {
+        "markc1-stacks-euw-nonprod-pe" = {
+          sub_name                                      = "markc1-stacks-euw-nonprod-pe"
+          sub_address_prefix                            = ["10.10.1.0/24"]
+          private_endpoint_network_policies_enabled     = true
+          private_link_service_network_policies_enabled = true
+          service_endpoints                             = ["Microsoft.AzureActiveDirectory", "Microsoft.KeyVault", "Microsoft.ServiceBus", "Microsoft.Sql", "Microsoft.Storage"]
+        },
+        "markc1-stacks-euw-nonprod" = {
+          sub_name                                      = "markc1-stacks-euw-nonprod"
+          sub_address_prefix                            = ["10.10.2.0/24"]
+          private_endpoint_network_policies_enabled     = true
+          private_link_service_network_policies_enabled = true
+          service_endpoints                             = ["Microsoft.AzureActiveDirectory", "Microsoft.KeyVault", "Microsoft.ServiceBus", "Microsoft.Sql", "Microsoft.Storage"]
+        }
+
+    } },
+
+    "markc1-stacks-euw-prod" = {
+      name                = "markc1-stacks-euw-prod"
+      address_space       = ["10.11.0.0/16"]
+      dns_servers         = []
+      resource_group_name = "markc1-stacks-euw-prod-network"
+      is_hub              = false
+      link_to_private_dns = true
+      subnet_details = {
+        "markc1-stacks-euw-prod-pe" = {
+          sub_name                                      = "markc1-stacks-euw-prod-pe"
+          sub_address_prefix                            = ["10.11.1.0/24"]
+          private_endpoint_network_policies_enabled     = true
+          private_link_service_network_policies_enabled = true
+          service_endpoints                             = ["Microsoft.AzureActiveDirectory", "Microsoft.KeyVault", "Microsoft.ServiceBus", "Microsoft.Sql", "Microsoft.Storage"]
+        },
+        "markc1-stacks-euw-prod" = {
+          sub_name                                      = "markc1-stacks-euw-prod"
+          sub_address_prefix                            = ["10.11.2.0/24"]
+          private_endpoint_network_policies_enabled     = true
+          private_link_service_network_policies_enabled = true
+          service_endpoints                             = ["Microsoft.AzureActiveDirectory", "Microsoft.KeyVault", "Microsoft.ServiceBus", "Microsoft.Sql", "Microsoft.Storage"]
+        }
+
+    } },
   }
 }
 
