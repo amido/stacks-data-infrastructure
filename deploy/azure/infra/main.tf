@@ -59,7 +59,7 @@ module "kv_default" {
 
 # module call for ADF
 module "adf" {
-  source                          = "git::https://github.com/ensono/stacks-terraform//azurerm/modules/azurerm-adf?ref=master"
+  source                          = "git::https://github.com/ensono/stacks-terraform//azurerm/modules/azurerm-adf?ref=feature/7170"
   resource_namer                  = module.default_label.id
   resource_group_name             = azurerm_resource_group.default.name
   resource_group_location         = azurerm_resource_group.default.location
@@ -70,7 +70,7 @@ module "adf" {
   managed_virtual_network_enabled = var.managed_virtual_network_enabled
   tenant_id                       = data.azurerm_client_config.current.tenant_id
   ir_enable_interactive_authoring = false
-  enable_private_network          = var.enable_private_networks
+  public_network_access_enabled   = var.public_network_access_enabled
 }
 
 ###########  Private Endpoints for ADF to connect to Azure services ######################
