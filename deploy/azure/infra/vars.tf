@@ -313,7 +313,7 @@ variable "databricks_enableDbfsFileBrowser" {
 variable "public_network_access_enabled" {
   description = "If set to true, User will be able to access databrick workspace  UI from Azure portal, this should set to false in production."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "databricks-host" {
