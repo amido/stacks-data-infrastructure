@@ -70,6 +70,7 @@ module "adf" {
   managed_virtual_network_enabled = var.managed_virtual_network_enabled
   tenant_id                       = data.azurerm_client_config.current.tenant_id
   ir_enable_interactive_authoring = false
+  enable_private_network          = var.enable_private_networks
 }
 
 ###########  Private Endpoints for ADF to connect to Azure services ######################
