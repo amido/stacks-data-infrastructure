@@ -15,7 +15,7 @@ contexts:
         - /app
         - --env-file
         - envfile
-        - amidostacks/runner-pwsh-data:0.4.21-unstable
+        - amidostacks/runner-pwsh-data:0.4.60-unstable
         - pwsh
         - -NoProfile
         - -Command
